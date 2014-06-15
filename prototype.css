@@ -1,0 +1,14 @@
+body 
+	{
+		background-color:LightSkyBlue;
+	}
+	
+.viewer 
+	{
+		background-color:#F8F8FF; 
+		border-style: solid; 
+		border-width: medium; 
+		margin: 180px;
+		height:780px;
+		width:900px;
+	}
