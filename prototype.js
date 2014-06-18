@@ -14,6 +14,7 @@ var xmlhttp = CreateXmlHttpRequestObject();
 
 //indirizzo del server ed eventuali parametri
 //var server_address = "prototype.php";
+//server di prova
 var server_address = "prototype_test.php";
 
 //********************** FUNZIONI GENERICHE*****************************
@@ -146,7 +147,7 @@ function CheckParameter()
 {   
 	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
 	var pattrn = /[^a-z,A-Z,0-9, ]/;//ricerco tutti i caratteri diversi da a-z,0-9,A-Z e spazio(voglio la possibilitˆ di inserire campi vuoti o con degli spazi)
-	var testResult = true;
+	var testResult = true;//<-- problema il campo id andrebbe tetsato separatamente @TODO definire i campi obbligatori per l'inserimento (aggiunta di un record)
 	for(var i = 0 ; i<index.length ; i ++)
 	{
 		if(pattrn.test(document.getElementById(index[i]).value))
@@ -190,7 +191,7 @@ function LoadDatabase(xmlhttp)
 }
 
 //funzione per la ricerca di valori nel database
-function Search()
+function Search()//<--------------------------------------funzione sotto test
 {
 	//parametri da prelevare dai form
 	var query ="2";
