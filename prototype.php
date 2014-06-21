@@ -3,10 +3,11 @@ $parameter_name = array('Nome','Marca','Prezzo_Vendita','Prezzo_Acquisto','Iva')
 //creo una connessione al database
 //require_once('config.php');
 $con= mysqli_connect('localhost','root','root','DB_Pweb');
-$QueryType = $_GET['query'];
+$QueryType = $_POST['query'];
 SendResponse($QueryType , $con);
 //SimpleSendResponse($con);
-
+//chiudo la connessione al DB
+mysqli_close($con);
 
 
 
@@ -46,11 +47,11 @@ function SendResponse($QueryType , $con)
 	 	$result = mysqli_query($con,$query);
 	 	//PrintResult($result);
 		while ($row = mysqli_fetch_array($result)) 
-	{
-		echo '<tr>';	
-		echo ('<td>'.$row['Id'] . '</td>'.'<td>' . $row['Nome'].'</td>'); //<---- MODIFICARE RIGHE
-		echo '</tr>';
-	}
+		{
+			echo '<tr>';	
+			echo ('<td>'.$row['Id'] . '</td>'.'<td>' . $row['Nome'].'</td>'); //<---- MODIFICARE RIGHE
+			echo '</tr>';
+		}
 	}
 	
 }
@@ -74,27 +75,27 @@ function AddParams($QueryType)
 	global $parameter_name;
 	//**********************************************
 	//carico il database
-	if($QueryType == 1)
+	if($QueryType ==1)
 	{
 		$query_1 = 'SELECT * FROM Prodotti';
 		return $query_1;
 	}
-	//*********************************************
+	//*********************************************AREA UNDER TEST***********************************************************************************
+	//non viene eseguita la seconda query eseguita problema di connessione con il database (credo ) o di invio delle richieste
 	//cerco un valore nel database
 	if($QueryType == 2)
 	{
-	$query_2 = 'SELECT * FROM Prodotti WHERE ';
-	
-	foreach($parameter_name as $value)
+	$query_2 = 'SELECT * FROM Prodotti WHERE Prezzo_Vendita>2';
+	/*foreach($parameter_name as $value)
 	{
-		if($_GET[$value]);
+		if($_POST[$value]);
 		{
-			$query_2.=$value.'='.$_GET[$value].' ';
+			$query_2.=$value.'='.$_POST[$value].' ';
 		}		
-	}
+	}*/
 	return $query_2;
 	}
-	//********************************************
+	//******************************************** ******************************************************************************************************
 	//aggiungo un nuovo record
 	if($QueryType==3)
 	{
@@ -102,9 +103,9 @@ function AddParams($QueryType)
 		//************************************
 		foreach($parameter_name as $value)
 		{
-			if($_GET[$value])
+			if($_POST[$value])
 			{
-				$query_3.=$_GET[$value];
+				$query_3.=$_POST[$value];
 			}
 			else
 			{

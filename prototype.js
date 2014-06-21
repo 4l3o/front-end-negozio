@@ -13,9 +13,9 @@ function submit()
 var xmlhttp = CreateXmlHttpRequestObject();
 
 //indirizzo del server ed eventuali parametri
-//var server_address = "prototype.php";
+var server_address = "prototype.php";
 //server di prova
-var server_address = "prototype_test.php";
+//var server_address = "prototype_test.php";
 
 //********************** FUNZIONI GENERICHE*****************************
 
@@ -42,9 +42,10 @@ function SendData (xmlhttp , params )
 		//tentiamo la connessione al server
 		try
 		{
-			xmlhttp.open("GET" , server_address + "?" + params , true);
+			xmlhttp.open("POST" , server_address , true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xmlhttp.onreadystatechange = HandleRequestStateChange;
-			xmlhttp.send(null);
+			xmlhttp.send(params);//invio dati attraverso metodo post
 		}	
 		catch(e)
 		{
@@ -94,7 +95,7 @@ function ServerResponse()
 } 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //funzione per l'inpacchettamento dei parametri
-function Packer(query)//aggiungere controllo dei valori <<<<<<<---------------------------------
+function Packer_test(query)//aggiungere controllo dei valori <<<<<<<---------------------------------
 {
 	//prezzo vendita dovrebbe essere calcolato direttamente dal sistema
 	//controllo il valoro dei parametri se diverso da null o da "" posso prenderli --->mettere il controllo con le espressioni regolari direttamente nei campi di testo (all'entrata e all'uscita) 
@@ -141,6 +142,15 @@ function Packer(query)//aggiungere controllo dei valori <<<<<<<-----------------
 	}
 	return params; 
 }
+//*****************************************************AREA UNDER TEST******************************************************************************************
+function Packer(query)
+{
+	params = "&query=" + query;
+	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
+	params +="&Nome=farina &Marca=NULL &Prezzo_Vendita=NULL &Prezzo_Acquisto=NULL &IVA=NULL";
+
+}
+//*************************************************************************************************************************************************************
 //funzione che controlla la correttezza dei parametri
 //da chiamare ogni volta che esco da un campo (sblocca il pulsante per l'invio dati ) 
 function CheckParameter()
@@ -186,7 +196,7 @@ function ResetInput ()
 function LoadDatabase(xmlhttp)
 {
 	//per caricare tutto il database dobbiamo effettuare una query
-	var params = "&query=1";
+	var params = "query=1";
 	SendData(xmlhttp,params);
 }
 
@@ -194,9 +204,9 @@ function LoadDatabase(xmlhttp)
 function Search()//<--------------------------------------funzione sotto test
 {
 	//parametri da prelevare dai form
-	var query ="2";
-	var params = Packer(query);
-	
+	//var query ="2";
+	//var params = Packer(query);
+	var params ="query=2" ;//funziona @TODO cambiare il formato dei parametri per renderli inviabili tramite post
 	//invio parametri al server
 	SendData(xmlhttp,params);	
 }
