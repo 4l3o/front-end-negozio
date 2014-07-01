@@ -1,12 +1,3 @@
-//*****************************************
-function submit()
-{
-	//@Todo controllo valori del form 
-		
-	
-	document.getElementById("frm1").submit();
-}
-//****************************************
 //la comunicazione server-client avviene tutta attraverso ajax
 
 //creao un istanza di xmlhttprequest
@@ -95,11 +86,11 @@ function ServerResponse()
 } 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //funzione per l'inpacchettamento dei parametri
-function Packer_test(query)//aggiungere controllo dei valori <<<<<<<---------------------------------
+function Packer(query)
 {
 	//prezzo vendita dovrebbe essere calcolato direttamente dal sistema
 	//controllo il valoro dei parametri se diverso da null o da "" posso prenderli --->mettere il controllo con le espressioni regolari direttamente nei campi di testo (all'entrata e all'uscita) 
-	params = "&query=" + query;
+	params = "query=" + query;
 	if( document.getElementById("Nome").value || document.getElementById("Nome").value != " " )
 	{
 		params += "&Nome="+document.getElementById("Nome").value;
@@ -143,7 +134,7 @@ function Packer_test(query)//aggiungere controllo dei valori <<<<<<<------------
 	return params; 
 }
 //*****************************************************AREA UNDER TEST******************************************************************************************
-function Packer(query)
+function Packer_Test(query)
 {
 	params = "&query=" + query;
 	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
@@ -201,12 +192,11 @@ function LoadDatabase(xmlhttp)
 }
 
 //funzione per la ricerca di valori nel database
-function Search()//<--------------------------------------funzione sotto test
+function Search()
 {
 	//parametri da prelevare dai form
-	//var query ="2";
-	//var params = Packer(query);
-	var params ="query=2" ;//funziona @TODO cambiare il formato dei parametri per renderli inviabili tramite post
+	var query ="2";
+	var params = Packer(query);
 	//invio parametri al server
 	SendData(xmlhttp,params);	
 }

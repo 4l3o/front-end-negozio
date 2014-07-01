@@ -1,5 +1,5 @@
 <?php 
-$parameter_name = array('Nome','Marca','Prezzo_Vendita','Prezzo_Acquisto','Iva'); //array di riferimento dei parametri del database @todo spostarlo in php config
+$parameter_name = array('Nome'=>'[^A-z,0-9,_]','Marca'=>'[^A-z,0-9,_]','Prezzo_Vendita'=>'[^0-9]','Prezzo_Acquisto'=>'[^0-9]','Iva'=>'[^0-9]'); //array di riferimento dei parametri del database @todo spostarlo in php config
 //creo una connessione al database
 //require_once('config.php');
 $con= mysqli_connect('localhost','root','root','DB_Pweb');
@@ -31,29 +31,36 @@ function SimpleSendResponse($con)
 
 function SendResponse($QueryType , $con)
 {
-	if($QueryType == 3)
-	{
-		$query = AddParams( $QueryType);
-		mysqli_query($con,$query);
-		//aggiorno i record visualizzati chiamando nuovamente la funzione con querytype = 1
-		$QueryType = 1;
-		SendResponse($QueryType);
-	}
+	/*if(CheckParams)
+	{*/
+		if($QueryType == 3)
+		{
+			$query = AddParams( $QueryType);
+			mysqli_query($con,$query);
+			//aggiorno i record visualizzati chiamando nuovamente la funzione con querytype = 1
+			$QueryType = 1;
+			SendResponse($QueryType);
+		}
+		else
+		{	
+		
+			//$query = 'SELECT * FROM Prodotti';
+		 	$query = AddParams($QueryType);	
+		 	$result = mysqli_query($con,$query);
+		 	//PrintResult($result);
+			while ($row = mysqli_fetch_array($result)) 
+			{
+				echo '<tr>';	
+				echo ('<td>'.$row['Id'] . '</td>'.'<td>' . $row['Nome'].'</td>'); //<---- MODIFICARE RIGHE
+				echo '</tr>';
+			}
+		}
+	/*}
 	else
 	{
-		
-		//$query = 'SELECT * FROM Prodotti';
-	 	$query = AddParams($QueryType);	
-	 	$result = mysqli_query($con,$query);
-	 	//PrintResult($result);
-		while ($row = mysqli_fetch_array($result)) 
-		{
-			echo '<tr>';	
-			echo ('<td>'.$row['Id'] . '</td>'.'<td>' . $row['Nome'].'</td>'); //<---- MODIFICARE RIGHE
-			echo '</tr>';
-		}
+	//messaggio di errore 
 	}
-	
+	*/
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -68,6 +75,15 @@ function PrintResult($result)
 	}
 }
 
+//funzione per il controllo dei valori (@TODO deve generare un errore riconoscibile dal client nella funzione che gestisce gli errori )
+function CheckParams($parameter_name)
+{ 
+	foreach ($parameter as $x=>$x_value)
+	{
+
+	}
+	
+}
 
 //funzione che crea la query a partira dai dati inviati al server
 function AddParams($QueryType)
@@ -85,14 +101,13 @@ function AddParams($QueryType)
 	//cerco un valore nel database
 	if($QueryType == 2)
 	{
-	$query_2 = 'SELECT * FROM Prodotti WHERE Prezzo_Vendita>2';
-	/*foreach($parameter_name as $value)
+	foreach($parameter_name as $value)
 	{
 		if($_POST[$value]);
 		{
 			$query_2.=$value.'='.$_POST[$value].' ';
 		}		
-	}*/
+	}
 	return $query_2;
 	}
 	//******************************************** ******************************************************************************************************
