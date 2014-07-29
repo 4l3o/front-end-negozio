@@ -1,12 +1,3 @@
-//*****************************************
-function submit()
-{
-	//@Todo controllo valori del form 
-		
-	
-	document.getElementById("frm1").submit();
-}
-//****************************************
 //la comunicazione server-client avviene tutta attraverso ajax
 
 //creao un istanza di xmlhttprequest

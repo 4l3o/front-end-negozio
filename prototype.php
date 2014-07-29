@@ -1,5 +1,5 @@
 <?php 
-$parameter_name = array('Nome','Marca','Prezzo_Vendita','Prezzo_Acquisto','Iva'); //array di riferimento dei parametri del database @todo spostarlo in php config
+$parameter_name = array('Nome'=>'[^A-z,0-9,_]','Marca'=>'[^A-z,0-9,_]','Prezzo_Vendita'=>'[^0-9]','Prezzo_Acquisto'=>'[^0-9]','Iva'=>'[^0-9]'); //array di riferimento dei parametri del database @todo spostarlo in php config
 //creo una connessione al database
 //require_once('config.php');
 $con= mysqli_connect('localhost','root','root','DB_Pweb');
@@ -70,6 +70,15 @@ function PrintResult($result)
 	}
 }
 
+//funzione per il controllo dei valori (@TODO deve generare un errore riconoscibile dal client nella funzione che gestisce gli errori )
+function CheckParams($parameter_name)
+{ 
+	foreach ($parameter as $x=>$x_value)
+	{
+
+	}
+	
+}
 
 //funzione che crea la query a partira dai dati inviati al server
 function AddParams($QueryType)
