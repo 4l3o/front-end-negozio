@@ -4,6 +4,8 @@ $parameter_name = array('Nome','Marca','Prezzo_Vendita','Prezzo_Acquisto','Iva')
 //require_once('config.php');
 $con= mysqli_connect('localhost','root','root','DB_Pweb');
 $QueryType = $_POST['query'];
+$query = AddParams($QueryType);
+echo $query;
 SendResponse($QueryType , $con);
 //SimpleSendResponse($con);
 //chiudo la connessione al DB
@@ -85,14 +87,14 @@ function AddParams($QueryType)
 	//cerco un valore nel database
 	if($QueryType == 2)
 	{
-	$query_2 = 'SELECT * FROM Prodotti WHERE Prezzo_Vendita>2';
-	/*foreach($parameter_name as $value)
+	$query_2 = 'SELECT * FROM Prodotti WHERE ';
+	foreach($parameter_name as $value)
 	{
-		if($_POST[$value]);
+		if($_POST[$value]!= NULL || $_POST[$value]!= '')
 		{
-			$query_2.=$value.'='.$_POST[$value].' ';
+			$query_2.=$value.'='.'"'.$_POST[$value].'"'.' ';
 		}		
-	}*/
+	}
 	return $query_2;
 	}
 	//******************************************** ******************************************************************************************************
@@ -105,7 +107,7 @@ function AddParams($QueryType)
 		{
 			if($_POST[$value])
 			{
-				$query_3.=$_POST[$value];
+				$query_3.=$_POST[$value];//se non funziona è perchè mancano le virgolette ai valori 
 			}
 			else
 			{

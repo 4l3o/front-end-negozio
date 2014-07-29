@@ -95,59 +95,73 @@ function ServerResponse()
 } 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //funzione per l'inpacchettamento dei parametri
-function Packer_test(query)//aggiungere controllo dei valori <<<<<<<---------------------------------
-{
+function Packer(query)//aggiungere controllo dei valori <<<<<<<---------------------------------
+{       //nn riesce a distinguere lo spazio inserendo valori non corretti come query!!!!
 	//prezzo vendita dovrebbe essere calcolato direttamente dal sistema
-	//controllo il valoro dei parametri se diverso da null o da "" posso prenderli --->mettere il controllo con le espressioni regolari direttamente nei campi di testo (all'entrata e all'uscita) 
-	params = "&query=" + query;
+	//controllo il valoro dei parametri se diverso da null o da "" posso prenderli  
+	params = "query=" + query;
 	if( document.getElementById("Nome").value || document.getElementById("Nome").value != " " )
 	{
 		params += "&Nome="+document.getElementById("Nome").value;
 	}
-	else
+/*	else
 	{
 		params += "&Nome=NULL"; 
 	}
-	if( document.getElementById("Marca").value || document.getElementById("Marca").value != " " )
+*/
+	if( document.getElementById("Marca").value!="NULL" || document.getElementById("Marca").value != " " )
 	{
 		params += "&Marca="+document.getElementById("Marca").value;
 	}
-	else
+/*	else
 	{
 		params += "&Marca=NULL";
 	}
+*/
 	if( document.getElementById("PrezzoVendita").value || document.getElementById("PrezzoVendita").value != " " )
 	{
 		params += "&Prezzo_Vendita="+document.getElementById("PrezzoVendita").value;
 	}
-	else
+/*	else
 	{
 		params += "&Prezzo_Vendita=NULL";
 	}
+*/
 	if( document.getElementById("PrezzoAcquisto").value || document.getElementById("PrezzoAcquisto").value != " " )
 	{
 		params += "&Prezzo_Acquisto="+document.getElementById("PrezzoAcquisto").value;
 	}
-	else
+/*	else
 	{
 		params += "&Prezzo_Acquisto=NULL";
 	}
+*/
 	if( document.getElementById("Iva").value || document.getElementById("Iva").value != " " )
 	{
 		params += "&Iva="+document.getElementById("Iva").value;
 	}
-	else
+/*	else
 	{
 		params += "&Iva=NULL";
 	}
-	return params; 
+*/
+	return params;
+	//nuova funzione ottimizzata
+	params = "query=" + query;
+	var pattrn = /[ ]/;
+	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
+	for(var i = 0;i<index.length;i++)
+	{
+		if(document.getElementById(index[i]).value||!pattrn.test(document.getElementById(index[i]).value)) 
+	}
+
 }
 //*****************************************************AREA UNDER TEST******************************************************************************************
-function Packer(query)
+function Packer_test(query)
 {
-	params = "&query=" + query;
-	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
-	params +="&Nome=farina &Marca=NULL &Prezzo_Vendita=NULL &Prezzo_Acquisto=NULL &IVA=NULL";
+	
+	params ="query=2&Nome=farina";
+	return params;
 
 }
 //*************************************************************************************************************************************************************
@@ -204,9 +218,9 @@ function LoadDatabase(xmlhttp)
 function Search()//<--------------------------------------funzione sotto test
 {
 	//parametri da prelevare dai form
-	//var query ="2";
-	//var params = Packer(query);
-	var params ="query=2" ;//funziona @TODO cambiare il formato dei parametri per renderli inviabili tramite post
+	var query ="2";
+	var params = Packer(query);
+	//var params ="query=2" ;//funziona @TODO cambiare il formato dei parametri per renderli inviabili tramite post
 	//invio parametri al server
 	SendData(xmlhttp,params);	
 }
