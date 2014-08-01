@@ -23,7 +23,6 @@ function CreateXmlHttpRequestObject()
 		return xmlhttp;
 	}
 }
-//------------------------------------------------------------- AREA UNDER TESTING -----------------------------------------------------------------------------
 //funzione per l'invio di dati al server
 function SendData (xmlhttp , params )
 {
@@ -143,8 +142,12 @@ function Packer(query)//aggiungere controllo dei valori <<<<<<<-----------------
 	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
 	for(var i = 0;i<index.length;i++)
 	{
-		if(document.getElementById(index[i]).value||!pattrn.test(document.getElementById(index[i]).value)) 
+		if(document.getElementById(index[i]).value||!pattrn.test(document.getElementById(index[i]).value))
+		{
+			params += "&" + index[i] + "=" + document.getElementById(index[i]).value;
+		}
 	}
+	return params;
 
 }
 //*****************************************************AREA UNDER TEST******************************************************************************************

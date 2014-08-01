@@ -48,7 +48,7 @@ function SendResponse($QueryType , $con)
 	 	$query = AddParams($QueryType);	
 	 	$result = mysqli_query($con,$query);
 	 	//PrintResult($result);
-		while ($row = mysqli_fetch_array($result)) 
+		while ($row = mysqli_fetch_array($result)) //stampa dei risultati in maniera normale --->responseText 
 		{
 			echo '<tr>';	
 			echo ('<td>'.$row['Id'] . '</td>'.'<td>' . $row['Nome'].'</td>'); //<---- MODIFICARE RIGHE
@@ -59,15 +59,32 @@ function SendResponse($QueryType , $con)
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//funzione per il ritorno dei valori 
-function PrintResult($result)
+//funzione per il ritorno dei valori
+//genera la risposta in formato xml 
+function PrintResult($result,$log)
 {
+	echo '<value>'; //@TODO rivedere l'elaborazione dell'xml tramite ajax e tramite php ---->cambiare responseText in responseXML nel javascrip , necessita di essere parsato !!! 
 	while ($row = mysqli_fetch_array($result)) 
 	{
 		echo '<tr>';
 		echo ('<td>'.$row['Id'] . '</td>'.'<td>' . $row['Nome'].'</td>'); //<---- MODIFICARE RIGHE
 		echo '</tr>';
 	}
+	echo '</value>';
+	echo ('<log>'.$log.'</log>');// stampo il log degli errori dell'operazione appena eseguita
+	//nuova funzione adattata all'utilizzo di xml 
+	
+	$xmlDoc= new DOMDocument('1.0','UTF-8');
+	$xmlRoot = $xmlDoc->createElement('xml');
+	$xmlRoot= $xmlDoc->appendChild($xmlRoot);
+	$xmlResult = $xmlDoc->createElement('result', $result);
+	$xmlRoot->appendChild($xmlResult)
+	$xmlLog = $xmlDoc->createElement('log',$log);
+	$xmlRoot->appendChild($xmlLog);
+
+	//stampa del file xml
+	echo $xmlDoc->saveXML();
+
 }
 
 //funzione per il controllo dei valori (@TODO deve generare un errore riconoscibile dal client nella funzione che gestisce gli errori )
