@@ -77,10 +77,14 @@ function HandleRequestStateChange()
 //funzione che riceve i risultati
 function ServerResponse()
 {
-	var response = xmlhttp.responseText;
+	//var response = xmlhttp.responseText; //prende la risposta sottoforma di testo
+	//prende la risposta sottoforma di documento XML
+	var response = xmlhttp.responseXML;
 	var mydiv = document.getElementById("mydiv");
-	mydiv.innerHTML = response;
+	mydiv.innerHTML = response.getElementsByTagName("result")[0].childNodes[0].nodeValue; 
 	ResetInput();
+
+	//versione con risposta in xml
 	
 } 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -137,7 +141,7 @@ function Packer(query)//aggiungere controllo dei valori <<<<<<<-----------------
 */
 	return params;
 	//nuova funzione ottimizzata
-	params = "query=" + query;
+	/*params = "query=" + query;
 	var pattrn = /[ ]/;
 	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
 	for(var i = 0;i<index.length;i++)
@@ -147,7 +151,7 @@ function Packer(query)//aggiungere controllo dei valori <<<<<<<-----------------
 			params += "&" + index[i] + "=" + document.getElementById(index[i]).value;
 		}
 	}
-	return params;
+	return params;*/
 
 }
 //*****************************************************AREA UNDER TEST******************************************************************************************

@@ -4,8 +4,8 @@ $parameter_name = array('Nome'=>'[^A-z,0-9,_]','Marca'=>'[^A-z,0-9,_]','Prezzo_V
 //require_once('config.php');
 $con= mysqli_connect('localhost','root','root','DB_Pweb');
 $QueryType = $_POST['query'];
-$query = AddParams($QueryType);
-echo $query;
+//$query = AddParams($QueryType);
+//echo $query;
 SendResponse($QueryType , $con);
 //SimpleSendResponse($con);
 //chiudo la connessione al DB
@@ -47,13 +47,14 @@ function SendResponse($QueryType , $con)
 		//$query = 'SELECT * FROM Prodotti';
 	 	$query = AddParams($QueryType);	
 	 	$result = mysqli_query($con,$query);
-	 	//PrintResult($result);
-		while ($row = mysqli_fetch_array($result)) //stampa dei risultati in maniera normale --->responseText 
+		$log_prova = 'hello world';
+	 	PrintResult($result,$log_prova);
+		/*while ($row = mysqli_fetch_array($result)) //stampa dei risultati in maniera normale --->responseText 
 		{
 			echo '<tr>';	
 			echo ('<td>'.$row['Id'] . '</td>'.'<td>' . $row['Nome'].'</td>'); //<---- MODIFICARE RIGHE
 			echo '</tr>';
-		}
+		}*/
 	}
 	
 }
@@ -63,22 +64,26 @@ function SendResponse($QueryType , $con)
 //genera la risposta in formato xml 
 function PrintResult($result,$log)
 {
-	echo '<value>'; //@TODO rivedere l'elaborazione dell'xml tramite ajax e tramite php ---->cambiare responseText in responseXML nel javascrip , necessita di essere parsato !!! 
-	while ($row = mysqli_fetch_array($result)) 
-	{
-		echo '<tr>';
-		echo ('<td>'.$row['Id'] . '</td>'.'<td>' . $row['Nome'].'</td>'); //<---- MODIFICARE RIGHE
-		echo '</tr>';
-	}
-	echo '</value>';
-	echo ('<log>'.$log.'</log>');// stampo il log degli errori dell'operazione appena eseguita
-	//nuova funzione adattata all'utilizzo di xml 
+	//@TODO rivedere l'elaborazione dell'xml tramite ajax e tramite php ---->cambiare responseText in responseXML nel javascrip , necessita di essere parsato !!! 
 	
+	//nuova funzione adattata all'utilizzo di xml 
+	header( "content-type: application/xml; charset=UTF-8" );	
 	$xmlDoc= new DOMDocument('1.0','UTF-8');
+	$xmlDoc->formatOutput = true;
 	$xmlRoot = $xmlDoc->createElement('xml');
 	$xmlRoot= $xmlDoc->appendChild($xmlRoot);
-	$xmlResult = $xmlDoc->createElement('result', $result);
-	$xmlRoot->appendChild($xmlResult)
+	$xmlResult = $xmlDoc->createElement('result');
+	$xmlRoot->appendChild($xmlResult);
+	while($row = mysqli_fetch_array($result))
+	{	
+		$e ='<tr>'.'<td>'.$row['Id'].'</td>'.'<td>'.$row['Nome'].'</td>'.'</tr>';
+		$p = $xmlDoc->createTextNode($e);
+		$xmlResult->appendChild($p);
+	}
+	//$xmlResult = $xmlDoc->createElement('result',$e);
+	//$xmlRoot->appendChild($xmlResult);
+
+
 	$xmlLog = $xmlDoc->createElement('log',$log);
 	$xmlRoot->appendChild($xmlLog);
 
@@ -86,6 +91,7 @@ function PrintResult($result,$log)
 	echo $xmlDoc->saveXML();
 
 }
+
 
 //funzione per il controllo dei valori (@TODO deve generare un errore riconoscibile dal client nella funzione che gestisce gli errori )
 function CheckParams($parameter_name)
