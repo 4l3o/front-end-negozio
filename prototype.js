@@ -5,6 +5,7 @@ var xmlhttp = CreateXmlHttpRequestObject();
 
 //indirizzo del server ed eventuali parametri
 var server_address = "prototype.php";
+
 //server di prova
 //var server_address = "prototype_test.php";
 
@@ -35,7 +36,7 @@ function SendData (xmlhttp , params )
 			xmlhttp.open("POST" , server_address , true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xmlhttp.onreadystatechange = HandleRequestStateChange;
-			xmlhttp.send(params);//invio dati attraverso metodo post
+			xmlhttp.send(params);
 		}	
 		catch(e)
 		{
@@ -52,11 +53,9 @@ function HandleRequestStateChange()
 	//quando readystate assume valore 4 possiamo leggere la risposta del server
 	if(xmlhttp.readyState == 4) 
 	{
-		//alert("readystate==4");
 		//continuiamo solo se lo stato http è 200
 		if(xmlhttp.status == 200) 
 		{
-			//alert("uso risposta");
 			//utilizziamo la risposta del server
 			try
 			{
@@ -77,92 +76,69 @@ function HandleRequestStateChange()
 //funzione che riceve i risultati
 function ServerResponse()
 {
-	//var response = xmlhttp.responseText; //prende la risposta sottoforma di testo
 	//prende la risposta sottoforma di documento XML
 	var response = xmlhttp.responseXML;
 	var mydiv = document.getElementById("mydiv");
 	mydiv.innerHTML = response.getElementsByTagName("result")[0].childNodes[0].nodeValue; 
 	ResetInput();
 
-	//versione con risposta in xml
 	
 } 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //funzione per l'inpacchettamento dei parametri
-function Packer(query)//aggiungere controllo dei valori <<<<<<<---------------------------------
-{       //nn riesce a distinguere lo spazio inserendo valori non corretti come query!!!!
+function Packer(query)
+{       
+	//nn riesce a distinguere lo spazio inserendo valori non corretti come query!!!!
 	//prezzo vendita dovrebbe essere calcolato direttamente dal sistema
 	//controllo il valoro dei parametri se diverso da null o da "" posso prenderli  
 	params = "query=" + query;
-	if( document.getElementById("Nome").value || document.getElementById("Nome").value != " " )
-	{
-		params += "&Nome="+document.getElementById("Nome").value;
+	pattrn = /[A-z,1-9]+/;
+	contr =/\s\b/;
+	if(/* document.getElementById("Nome").value ||*/ pattrn.test(document.getElementById("Nome").value))
+	{	
+		x=document.getElementById("Nome").value;
+		if(contr.test(x)){x=x.substr(1);}
+		params += "&Nome="+x ;//document.getElementById("Nome").value.replace(/\b  /,'');
 	}
-/*	else
-	{
-		params += "&Nome=NULL"; 
-	}
-*/
-	if( document.getElementById("Marca").value!="NULL" || document.getElementById("Marca").value != " " )
+
+	if( /*document.getElementById("Marca").value!="NULL" ||*/ pattrn.test(document.getElementById("Marca").value))
 	{
 		params += "&Marca="+document.getElementById("Marca").value;
 	}
-/*	else
-	{
-		params += "&Marca=NULL";
-	}
-*/
-	if( document.getElementById("PrezzoVendita").value || document.getElementById("PrezzoVendita").value != " " )
+
+	if( /*document.getElementById("PrezzoVendita").value ||*/ pattrn.test(document.getElementById("PrezzoVendita").value))
 	{
 		params += "&Prezzo_Vendita="+document.getElementById("PrezzoVendita").value;
 	}
-/*	else
-	{
-		params += "&Prezzo_Vendita=NULL";
-	}
-*/
-	if( document.getElementById("PrezzoAcquisto").value || document.getElementById("PrezzoAcquisto").value != " " )
+
+	if( /*document.getElementById("PrezzoAcquisto").value ||*/ pattrn.test(document.getElementById("PrezzoAcquisto").value))
 	{
 		params += "&Prezzo_Acquisto="+document.getElementById("PrezzoAcquisto").value;
 	}
-/*	else
-	{
-		params += "&Prezzo_Acquisto=NULL";
-	}
-*/
-	if( document.getElementById("Iva").value || document.getElementById("Iva").value != " " )
+
+	if( /*document.getElementById("Iva").value ||*/ pattrn.test(document.getElementById("Iva").value))
 	{
 		params += "&Iva="+document.getElementById("Iva").value;
 	}
-/*	else
-	{
-		params += "&Iva=NULL";
-	}
-*/
+
 	return params;
-	//nuova funzione ottimizzata
-	/*params = "query=" + query;
-	var pattrn = /[ ]/;
+	/*
+	nuova funzione ottimizzata
+	params = "query=" + query;
+	var pattrn = /[A-z,1-9]+/;
 	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
 	for(var i = 0;i<index.length;i++)
 	{
-		if(document.getElementById(index[i]).value||!pattrn.test(document.getElementById(index[i]).value))
+		if(document.getElementById(index[i]).value||pattrn.test(document.getElementById(index[i]).value))
 		{
 			params += "&" + index[i] + "=" + document.getElementById(index[i]).value;
 		}
 	}
-	return params;*/
 
-}
-//*****************************************************AREA UNDER TEST******************************************************************************************
-function Packer_test(query)
-{
-	
-	params ="query=2&Nome=farina";
 	return params;
-
+	*/
 }
-//*************************************************************************************************************************************************************
+
 //funzione che controlla la correttezza dei parametri
 //da chiamare ogni volta che esco da un campo (sblocca il pulsante per l'invio dati ) 
 function CheckParameter()
@@ -213,12 +189,11 @@ function LoadDatabase(xmlhttp)
 }
 
 //funzione per la ricerca di valori nel database
-function Search()//<--------------------------------------funzione sotto test
+function Search()
 {
 	//parametri da prelevare dai form
 	var query ="2";
 	var params = Packer(query);
-	//var params ="query=2" ;//funziona @TODO cambiare il formato dei parametri per renderli inviabili tramite post
 	//invio parametri al server
 	SendData(xmlhttp,params);	
 }

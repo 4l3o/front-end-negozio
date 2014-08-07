@@ -16,9 +16,8 @@ mysqli_close($con);
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //funzione semplice di prova
 
-function SimpleSendResponse($con)
+function SimpleSendResponse($con,$query)
 {
-	$query ='SELECT * FROM Prodotti';
 	$result = mysqli_query($con , $query);
 	//stampa dei risultati
 	while ($row = mysqli_fetch_array($result)) 
@@ -44,17 +43,13 @@ function SendResponse($QueryType , $con)
 	else
 	{
 		
-		//$query = 'SELECT * FROM Prodotti';
 	 	$query = AddParams($QueryType);	
 	 	$result = mysqli_query($con,$query);
-		$log_prova = 'hello world';
+		$log_prova = $query;
 	 	PrintResult($result,$log_prova);
-		/*while ($row = mysqli_fetch_array($result)) //stampa dei risultati in maniera normale --->responseText 
-		{
-			echo '<tr>';	
-			echo ('<td>'.$row['Id'] . '</td>'.'<td>' . $row['Nome'].'</td>'); //<---- MODIFICARE RIGHE
-			echo '</tr>';
-		}*/
+
+		//funzione di test
+	//	SimpleSendResponse($con,$query);
 	}
 	
 }
@@ -63,9 +58,7 @@ function SendResponse($QueryType , $con)
 //funzione per il ritorno dei valori
 //genera la risposta in formato xml 
 function PrintResult($result,$log)
-{
-	//@TODO rivedere l'elaborazione dell'xml tramite ajax e tramite php ---->cambiare responseText in responseXML nel javascrip , necessita di essere parsato !!! 
-	
+{ 	
 	//nuova funzione adattata all'utilizzo di xml 
 	header( "content-type: application/xml; charset=UTF-8" );	
 	$xmlDoc= new DOMDocument('1.0','UTF-8');
@@ -80,9 +73,6 @@ function PrintResult($result,$log)
 		$p = $xmlDoc->createTextNode($e);
 		$xmlResult->appendChild($p);
 	}
-	//$xmlResult = $xmlDoc->createElement('result',$e);
-	//$xmlRoot->appendChild($xmlResult);
-
 
 	$xmlLog = $xmlDoc->createElement('log',$log);
 	$xmlRoot->appendChild($xmlLog);
@@ -106,30 +96,30 @@ function CheckParams($parameter_name)
 //funzione che crea la query a partira dai dati inviati al server
 function AddParams($QueryType)
 {
-	global $parameter_name;
-	//**********************************************
+	//global $parameter_name; ----->non funziona 
+	$parameter_name = array('Nome','Marca','Prezzo_Vendita','Prezzo_Acquisto','Iva');
 	//carico il database
 	if($QueryType ==1)
 	{
 		$query_1 = 'SELECT * FROM Prodotti';
 		return $query_1;
 	}
-	//*********************************************AREA UNDER TEST***********************************************************************************
-	//non viene eseguita la seconda query eseguita problema di connessione con il database (credo ) o di invio delle richieste
+	
 	//cerco un valore nel database
 	if($QueryType == 2)
 	{
 	$query_2 = 'SELECT * FROM Prodotti WHERE ';
 	foreach($parameter_name as $value)
 	{
-		if($_POST[$value]!= NULL || $_POST[$value]!= '')
+		if($_POST[$value]!= NULL ||$_POST[$value]!= '') //---->devo controllare che contenga almeno un carattere
 		{
 			$query_2.=$value.'='.'"'.$_POST[$value].'"'.' ';
 		}		
 	}
 	return $query_2;
 	}
-	//******************************************** ******************************************************************************************************
+	
+	//da testare
 	//aggiungo un nuovo record
 	if($QueryType==3)
 	{
