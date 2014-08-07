@@ -4,8 +4,6 @@ $parameter_name = array('Nome'=>'[^A-z,0-9,_]','Marca'=>'[^A-z,0-9,_]','Prezzo_V
 //require_once('config.php');
 $con= mysqli_connect('localhost','root','root','DB_Pweb');
 $QueryType = $_POST['query'];
-//$query = AddParams($QueryType);
-//echo $query;
 SendResponse($QueryType , $con);
 //SimpleSendResponse($con);
 //chiudo la connessione al DB
@@ -45,8 +43,8 @@ function SendResponse($QueryType , $con)
 		
 	 	$query = AddParams($QueryType);	
 	 	$result = mysqli_query($con,$query);
-		$log_prova = $query;
-	 	PrintResult($result,$log_prova);
+		$log = $query;
+	 	PrintResult($result,$log);
 
 		//funzione di test
 	//	SimpleSendResponse($con,$query);
@@ -83,7 +81,7 @@ function PrintResult($result,$log)
 }
 
 
-//funzione per il controllo dei valori (@TODO deve generare un errore riconoscibile dal client nella funzione che gestisce gli errori )
+//funzione per il controllo dei valori (@TODO genera errori e li stampa attraverso sendresponse e log nel "terminale")
 function CheckParams($parameter_name)
 { 
 	foreach ($parameter as $x=>$x_value)

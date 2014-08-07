@@ -103,22 +103,30 @@ function Packer(query)
 
 	if( /*document.getElementById("Marca").value!="NULL" ||*/ pattrn.test(document.getElementById("Marca").value))
 	{
-		params += "&Marca="+document.getElementById("Marca").value;
+		x=document.getElementById('Marca').value
+		if(contr.test(x)){x=x.substr(1);}
+		params += "&Marca="+x;
 	}
 
 	if( /*document.getElementById("PrezzoVendita").value ||*/ pattrn.test(document.getElementById("PrezzoVendita").value))
 	{
-		params += "&Prezzo_Vendita="+document.getElementById("PrezzoVendita").value;
+		x=document.getElementById('PrezzoVendita').value;
+		if(contr.test(x)){x=x.substr(1);}
+		params += "&Prezzo_Vendita="+x;
 	}
 
 	if( /*document.getElementById("PrezzoAcquisto").value ||*/ pattrn.test(document.getElementById("PrezzoAcquisto").value))
 	{
-		params += "&Prezzo_Acquisto="+document.getElementById("PrezzoAcquisto").value;
+		x=document.getElementById('PrezzoAcquisto').value;
+		if(contr.test(x)){x=x.substr(1);}
+		params += "&Prezzo_Acquisto="+x;
 	}
 
 	if( /*document.getElementById("Iva").value ||*/ pattrn.test(document.getElementById("Iva").value))
 	{
-		params += "&Iva="+document.getElementById("Iva").value;
+		x=document.getElementById('Iva').value;
+		if(contr.test(x)){x=x.substr(1);}
+		params += "&Iva="+x;
 	}
 
 	return params;

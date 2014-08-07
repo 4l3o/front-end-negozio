@@ -12,3 +12,12 @@ body
 		height:780px;
 		width:900px;
 	}
+.terminal
+	{
+		background-color:#F8F8FF;
+		border-style: solid;
+		border-width: medium;
+		margin: 180px;
+		height: 390px;
+		width:  900px;
+	}
