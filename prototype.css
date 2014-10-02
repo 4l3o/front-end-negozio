@@ -8,8 +8,8 @@ body
 		background-color:#F8F8FF; 
 		border-style: solid; 
 		border-width: medium; 
-		margin: 180px;
-		height:780px;
+		margin: 20px 180px 20px 180px;
+		height:700px;
 		width:900px;
 	}
 .terminal
@@ -17,7 +17,7 @@ body
 		background-color:#F8F8FF;
 		border-style: solid;
 		border-width: medium;
-		margin: 180px;
-		height: 390px;
+		margin: 20px 180px 20px 180px ;
+		height: 200px;
 		width:  900px;
 	}

@@ -79,7 +79,10 @@ function ServerResponse()
 	//prende la risposta sottoforma di documento XML
 	var response = xmlhttp.responseXML;
 	var mydiv = document.getElementById("mydiv");
-	mydiv.innerHTML = response.getElementsByTagName("result")[0].childNodes[0].nodeValue; 
+	mydiv.innerHTML = response.getElementsByTagName("result")[0].childNodes[0].nodeValue;
+	var log = "<p>"+"--->" + response.getElementsByTagName("log")[0].childNodes[0].nodeValue;+"</p>"
+	mydiv = document.getElementById("log");
+	mydiv.innerHTML += log; //TODO aggiungere un pulsante per resettare il logbox 
 	ResetInput();
 
 	
@@ -103,7 +106,7 @@ function Packer(query)
 
 	if( /*document.getElementById("Marca").value!="NULL" ||*/ pattrn.test(document.getElementById("Marca").value))
 	{
-		x=document.getElementById('Marca').value
+		x=document.getElementById('Marca').value;
 		if(contr.test(x)){x=x.substr(1);}
 		params += "&Marca="+x;
 	}

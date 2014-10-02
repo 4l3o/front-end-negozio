@@ -1,4 +1,4 @@
-----> ripulire il codice 
----->
----->
+----> aggiungere tasto reset terminale 
+----> completare gestione errori tramite log
+----> aggiungere > < == per i campi di ricerca numerici
 
