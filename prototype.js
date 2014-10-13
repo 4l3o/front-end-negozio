@@ -230,7 +230,24 @@ function DeleteRecord()
 	SendData(xmlhttp,params);
 }
 
+//funzione di selezione 
 
+function Commit()
+{
+	var select = document.getElementById("function").value;
+	if(select == "add")
+	{
+		NewRecord();
+	}
+	if(select == "search")
+	{
+		Search();
+	}
+	if(select == "remove")
+	{
+		DeleteRecord();
+	}
+}
 
 
 
