@@ -1,4 +1,8 @@
 ----> aggiungere tasto reset terminale 
 ----> completare gestione errori tramite log
 ----> aggiungere > < == per i campi di ricerca numerici
-
+---->formattare il div prompt
+----> rendere i campi minuscoli , case insensitive
+----> selezione produttori su box a discesa
+----> se i campi sono tutti vuoti i pulsanti devono essere disabilitati
+----> mettere nome databese e tabella nel file config 

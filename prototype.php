@@ -28,22 +28,31 @@ function SimpleSendResponse($con,$query)
 
 //funzione "ufficiale"
 
-function SendResponse($QueryType , $con)
+function SendResponse($QueryType , $con ,$message='empty' )
 {
 	if($QueryType == 3)
 	{
 		$query = AddParams( $QueryType);
 		mysqli_query($con,$query);
+		$log = $query;
 		//aggiorno i record visualizzati chiamando nuovamente la funzione con querytype = 1
 		$QueryType = 1;
-		SendResponse($QueryType);
+		SendResponse($QueryType , $con,$log);
 	}
 	else
 	{
 		
 	 	$query = AddParams($QueryType);	
 	 	$result = mysqli_query($con,$query);
-		$log = $query;
+		$log;	
+		if($message == 'empty')
+		{
+			$log=$query;
+		}
+		else
+		{
+			$log=$message;
+		}
 	 	PrintResult($result,$log);
 
 		//funzione di test
@@ -121,17 +130,17 @@ function AddParams($QueryType)
 	//aggiungo un nuovo record
 	if($QueryType==3)
 	{
-		$query_3 = 'INSERT INTO Prodotti VALUES(';
+		$query_3 = 'INSERT INTO Prodotti VALUES(DEFAULT,';
 		//************************************
 		foreach($parameter_name as $value)
 		{
 			if($_POST[$value])
 			{
-				$query_3.=$_POST[$value];//se non funziona è perchè mancano le virgolette ai valori 
+				$query_3.='"'.$_POST[$value].'"';//se non funziona è perchè mancano le virgolette ai valori 
 			}
 			else
 			{
-				$query_3.='NULL';
+				$query_3.='"'.'NULL'.'"';
 			}
 			if($value != $parameter_name[count($parameter_name)-1])
 			{

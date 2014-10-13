@@ -96,39 +96,39 @@ function Packer(query)
 	//controllo il valoro dei parametri se diverso da null o da "" posso prenderli  
 	params = "query=" + query;
 	pattrn = /[A-z,1-9]+/;
-	contr =/\s\b/;
+	//contr =/\s\b/;
 	if(/* document.getElementById("Nome").value ||*/ pattrn.test(document.getElementById("Nome").value))
 	{	
 		x=document.getElementById("Nome").value;
-		if(contr.test(x)){x=x.substr(1);}
+	//	if(contr.test(x)){x=x.substr(1);}
 		params += "&Nome="+x ;//document.getElementById("Nome").value.replace(/\b  /,'');
 	}
 
 	if( /*document.getElementById("Marca").value!="NULL" ||*/ pattrn.test(document.getElementById("Marca").value))
 	{
 		x=document.getElementById('Marca').value;
-		if(contr.test(x)){x=x.substr(1);}
+	//	if(contr.test(x)){x=x.substr(1);}
 		params += "&Marca="+x;
 	}
 
 	if( /*document.getElementById("PrezzoVendita").value ||*/ pattrn.test(document.getElementById("PrezzoVendita").value))
 	{
 		x=document.getElementById('PrezzoVendita').value;
-		if(contr.test(x)){x=x.substr(1);}
+	//	if(contr.test(x)){x=x.substr(1);}
 		params += "&Prezzo_Vendita="+x;
 	}
 
 	if( /*document.getElementById("PrezzoAcquisto").value ||*/ pattrn.test(document.getElementById("PrezzoAcquisto").value))
 	{
 		x=document.getElementById('PrezzoAcquisto').value;
-		if(contr.test(x)){x=x.substr(1);}
+	//	if(contr.test(x)){x=x.substr(1);}
 		params += "&Prezzo_Acquisto="+x;
 	}
 
 	if( /*document.getElementById("Iva").value ||*/ pattrn.test(document.getElementById("Iva").value))
 	{
 		x=document.getElementById('Iva').value;
-		if(contr.test(x)){x=x.substr(1);}
+	//	if(contr.test(x)){x=x.substr(1);}
 		params += "&Iva="+x;
 	}
 
@@ -182,7 +182,7 @@ function ResetInput ()
 	for(var i = 0 ; i<index.length ; i ++)
 	{
 		
-		document.getElementById(index[i]).value = " ";
+		document.getElementById(index[i]).value = "";
 		
 	}
 	
@@ -229,7 +229,10 @@ function DeleteRecord()
 	//invio dati al server
 	SendData(xmlhttp,params);
 }
-
+//funzione di modifica
+function ModifyRecord()
+{
+}
 //funzione di selezione 
 
 function Commit()
