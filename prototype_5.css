@@ -1,0 +1,36 @@
+body 
+	{
+		background-color:rgb(0,128,188);
+		font-size: 100%;
+	}
+
+.viewer
+	{
+		border-style: solid;
+		border-width: medium;	
+		background-color: #F8F8FF;
+		margin:5%;
+		height:50%;
+		width:50%;
+	}
+
+.terminal
+	{
+		background-color: #F8F8FF;
+		border-style: solid;
+		border-width: medium;
+		margin:5%;
+		height:50%;
+		width:50%;
+	}
+
+.controller
+	{	
+		background-color: #F8F8FF;
+		border-style: solid;
+		border-width: medium;
+		font-family: "Courier New" , monospace;
+		font-size:14;
+
+		
+	}
