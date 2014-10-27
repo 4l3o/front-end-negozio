@@ -74,6 +74,9 @@ function PrintResult($result,$log)
 	$xmlRoot= $xmlDoc->appendChild($xmlRoot);
 	$xmlResult = $xmlDoc->createElement('result');
 	$xmlRoot->appendChild($xmlResult);
+	$int = '<th>Id</th><th>Nome</th><th>Marca</th><th>Prezzo Vendita</th><th>Prezzo Acquisto</th><th>Iva</th>'; 
+	$pint = $xmlDoc->createTextNode($int);
+	$xmlResult->appendChild($pint);
 	while($row = mysqli_fetch_array($result))
 	{	
 		$e ='<tr>'.'<td>'.$row['Id'].'</td>'.'<td>'.$row['Nome'].'</td>'.'</tr>';
