@@ -8,6 +8,7 @@ body
 
 .container
 	{
+
 		float:right;
 		position:fixed;
 		right:2%;
@@ -22,7 +23,6 @@ body
 		float: left;
 		position:fixed;
 		left:2%;
-		background-color: #F8F8FF;
 		margin:30px 15px 15px 15px;
 		height:88%;
 		width:70%;
@@ -30,25 +30,27 @@ body
 
 .terminal
 	{
-		background-color: #F8F8FF;
-		border-style: solid;
-		border-width: medium;
+		font-family: "Courier New" , monospace;
+		background-color: #CCDBEB;
+		border: 1px solid #194169;
 		margin:15px 25px 15px 15px;
 		height:25%;
 		width:100%;
+		font-size: 0.7;
+		padding-left:10px;
 	}
 
 .controller 
 	{	
-
-		background-color: #F8F8FF;
-		border-style: solid;
-		border-width: medium;
-		font-family: "Courier New" , monospace;
-		font-size:1.1em;
+		background-color: #CCDBEB;
+		border: 1px solid #194169;
+		font-family: "Trebuchet MS";
+		font-size:0.9em;
 		margin:15px 25px 15px 15px;
 		height:60%;
 		width:100%;
+		padding-left:10px;
+		padding-top:5px;
 
 		
 	}
@@ -62,7 +64,7 @@ body
 
 #mydiv th
 	{	
-		border: 1px solid #245D96;
+		border: 1px solid #194169;
 		font-size:1.1em;
 		text-align: center;
 		background-color:#5488BC;
@@ -71,8 +73,9 @@ body
 #mydiv td 
 	{
 		text-align:left;
-		border:1px solid #245D96;
+		border:1px solid #194169;
 		font-size:1em;
+		background-color:#CCDBEB;
 		
 	}
 
