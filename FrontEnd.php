@@ -5,28 +5,12 @@ $parameter_name = array('Nome'=>'[^A-z,0-9,_]','Marca'=>'[^A-z,0-9,_]','Prezzo_V
 $con= mysqli_connect('localhost','root','root','DB_Pweb');
 $QueryType = $_POST['query'];
 SendResponse($QueryType , $con);
-//SimpleSendResponse($con);
+
 //chiudo la connessione al DB
 mysqli_close($con);
 
 
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//funzione semplice di prova
-
-function SimpleSendResponse($con,$query)
-{
-	$result = mysqli_query($con , $query);
-	//stampa dei risultati
-	while ($row = mysqli_fetch_array($result)) 
-	{
-		echo '<tr>';
-		echo ('<td>'.$row['Id'].'</td>'.'<td>'.$row['Nome'].'</td>');
-		echo '</tr>';
-	}
-}
-
-//funzione "ufficiale"
 
 function SendResponse($QueryType , $con ,$message='empty' )
 {
@@ -54,13 +38,11 @@ function SendResponse($QueryType , $con ,$message='empty' )
 			$log=$message;
 		}
 	 	PrintResult($result,$log);
-
-		//funzione di test
-	//	SimpleSendResponse($con,$query);
 	}
 	
 }
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 //funzione per il ritorno dei valori
 //genera la risposta in formato xml 
@@ -93,15 +75,6 @@ function PrintResult($result,$log)
 }
 
 
-//funzione per il controllo dei valori (@TODO genera errori e li stampa attraverso sendresponse e log nel "terminale")
-function CheckParams($parameter_name)
-{ 
-	foreach ($parameter as $x=>$x_value)
-	{
-
-	}
-	
-}
 
 //funzione che crea la query a partira dai dati inviati al server
 function AddParams($QueryType)
@@ -129,17 +102,17 @@ function AddParams($QueryType)
 	return $query_2;
 	}
 	
-	//da testare
+	
 	//aggiungo un nuovo record
 	if($QueryType==3)
 	{
 		$query_3 = 'INSERT INTO Prodotti VALUES(DEFAULT,';
-		//************************************
+	
 		foreach($parameter_name as $value)
 		{
 			if($_POST[$value])
 			{
-				$query_3.='"'.$_POST[$value].'"';//se non funziona è perchè mancano le virgolette ai valori 
+				$query_3.='"'.$_POST[$value].'"';
 			}
 			else
 			{

@@ -4,10 +4,8 @@
 var xmlhttp = CreateXmlHttpRequestObject();
 
 //indirizzo del server ed eventuali parametri
-var server_address = "prototype.php";
+var server_address = "FrontEnd.php";
 
-//server di prova
-//var server_address = "prototype_test.php";
 
 //********************** FUNZIONI GENERICHE*****************************
 
@@ -29,7 +27,7 @@ function CreateXmlHttpRequestObject()
 //funzione per l'invio di dati al server
 function SendData (xmlhttp , params )
 {
-	//continuiamo solo se xmlhttp non è null
+	//continuiamo solo se xmlhttp non ¬è null
 	if(xmlhttp)
 	{
 		//tentiamo la connessione al server
@@ -57,7 +55,7 @@ function HandleRequestStateChange()
 	//quando readystate assume valore 4 possiamo leggere la risposta del server
 	if(xmlhttp.readyState == 4) 
 	{
-		//continuiamo solo se lo stato http è 200
+		//continuiamo solo se lo stato http ¬è 200
 		if(xmlhttp.status == 200) 
 		{
 			//utilizziamo la risposta del server
@@ -99,44 +97,36 @@ function ServerResponse()
 //funzione per l'inpacchettamento dei parametri
 function Packer(query)
 {       
-	//nn riesce a distinguere lo spazio inserendo valori non corretti come query!!!!
-	//prezzo vendita dovrebbe essere calcolato direttamente dal sistema
-	//controllo il valoro dei parametri se diverso da null o da "" posso prenderli  
+	//prezzo vendita dovrebbe essere calcolato direttamente dal sistema  
 	params = "query=" + query;
 	pattrn = /[A-z,1-9]+/;
-	//contr =/\s\b/;
-	if(/* document.getElementById("Nome").value ||*/ pattrn.test(document.getElementById("Nome").value))
+	if( pattrn.test(document.getElementById("Nome").value))
 	{	
 		x=document.getElementById("Nome").value;
-	//	if(contr.test(x)){x=x.substr(1);}
-		params += "&Nome="+x ;//document.getElementById("Nome").value.replace(/\b  /,'');
+		params += "&Nome="+x ;
 	}
 
-	if( /*document.getElementById("Marca").value!="NULL" ||*/ pattrn.test(document.getElementById("Marca").value))
+	if( pattrn.test(document.getElementById("Marca").value))
 	{
-		x=document.getElementById('Marca').value;
-	//	if(contr.test(x)){x=x.substr(1);}
+		x=document.getElementById('Marca').value;	
 		params += "&Marca="+x;
 	}
 
-	if( /*document.getElementById("PrezzoVendita").value ||*/ pattrn.test(document.getElementById("PrezzoVendita").value))
+	if(  pattrn.test(document.getElementById("PrezzoVendita").value))
 	{
-		x=document.getElementById('PrezzoVendita').value;
-	//	if(contr.test(x)){x=x.substr(1);}
+		x=document.getElementById('PrezzoVendita').value;	
 		params += "&Prezzo_Vendita="+x;
 	}
 
-	if( /*document.getElementById("PrezzoAcquisto").value ||*/ pattrn.test(document.getElementById("PrezzoAcquisto").value))
+	if( pattrn.test(document.getElementById("PrezzoAcquisto").value))
 	{
-		x=document.getElementById('PrezzoAcquisto').value;
-	//	if(contr.test(x)){x=x.substr(1);}
+		x=document.getElementById('PrezzoAcquisto').value;	
 		params += "&Prezzo_Acquisto="+x;
 	}
 
-	if( /*document.getElementById("Iva").value ||*/ pattrn.test(document.getElementById("Iva").value))
+	if( pattrn.test(document.getElementById("Iva").value))
 	{
-		x=document.getElementById('Iva').value;
-	//	if(contr.test(x)){x=x.substr(1);}
+		x=document.getElementById('Iva').value;	
 		params += "&Iva="+x;
 	}
 
@@ -157,13 +147,13 @@ function Packer(query)
 	return params;
 	*/
 }
-
+//DA CONTROLLARE
 //funzione che controlla la correttezza dei parametri
 //da chiamare ogni volta che esco da un campo (sblocca il pulsante per l'invio dati ) 
 function CheckParameter()
 {   
 	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
-	var pattrn = /[^a-z,A-Z,0-9, ]/;//ricerco tutti i caratteri diversi da a-z,0-9,A-Z e spazio(voglio la possibilità di inserire campi vuoti o con degli spazi)
+	var pattrn = /[^a-z,A-Z,0-9, ]/;//ricerco tutti i caratteri diversi da a-z,0-9,A-Z e spazio(voglio la possibilit¬à di inserire campi vuoti o con degli spazi)
 	var testResult = true;//<-- problema il campo id andrebbe tetsato separatamente @TODO definire i campi obbligatori per l'inserimento (aggiunta di un record)
 	for(var i = 0 ; i<index.length ; i ++)
 	{
@@ -172,15 +162,15 @@ function CheckParameter()
 			testResult = false; 
 		}
 	}
-	//se test reult è true ha passatotutti i test
+	//se test reult ¬è true ha passatotutti i test
 	if(testResult)
 	{
-	//	document.getElementById("submit_button").disabled = false;
+	
 		document.getElementById("submit").disabled = false;
 	}
 	else
 	{
-	//	document.getElementById("submit_button").disabled = true;
+
 		document.getElementById("submit").disabled = true;
 	}
 	 
@@ -196,7 +186,7 @@ function ResetInput ()
 		
 	}
 	
-//	document.getElementById("submit_button").disabled = true;
+
 	document.getElementById("submit").disabled = true;
 }
 
@@ -205,7 +195,7 @@ function ResetInput ()
 //funzione che carica l'intera tabella al caricamento
 function LoadDatabase(xmlhttp)
 {
-	//per caricare tutto il database dobbiamo effettuare una query
+
 	var params = "query=1";
 	SendData(xmlhttp,params);
 }
@@ -213,7 +203,7 @@ function LoadDatabase(xmlhttp)
 //funzione per la ricerca di valori nel database
 function Search()
 {
-	//parametri da prelevare dai form
+
 	var query ="2";
 	var params = Packer(query);
 	//invio parametri al server
@@ -223,7 +213,7 @@ function Search()
 //funzione per aggiungere un record al database 
 function NewRecord()
 {
-	//memorizzo i valori dei parametri
+
 	var query ="3";
 	var params = Packer(query);
 	
@@ -244,8 +234,9 @@ function DeleteRecord()
 function ModifyRecord()
 {
 }
-//funzione di selezione 
 
+
+//funzione di selezione 
 function Commit()
 {
 	var select = document.getElementById("function").value;
@@ -262,39 +253,5 @@ function Commit()
 		DeleteRecord();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
