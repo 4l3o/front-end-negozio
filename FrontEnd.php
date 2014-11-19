@@ -1,8 +1,8 @@
 <?php 
-$parameter_name = array('Nome'=>'[^A-z,0-9,_]','Marca'=>'[^A-z,0-9,_]','Prezzo_Vendita'=>'[^0-9]','Prezzo_Acquisto'=>'[^0-9]','Iva'=>'[^0-9]'); //array di riferimento dei parametri del database @todo spostarlo in php config
+
 //creo una connessione al database
-//require_once('config.php');
-$con= mysqli_connect('localhost','root','root','DB_Pweb');
+require_once('config.php');
+$con= mysqli_connect(HOST,USR,PSWD,DB);
 $QueryType = $_POST['query'];
 SendResponse($QueryType , $con);
 
@@ -84,14 +84,14 @@ function AddParams($QueryType)
 	//carico il database
 	if($QueryType ==1)
 	{
-		$query_1 = 'SELECT * FROM Prodotti';
+		$query_1 = 'SELECT * FROM '.TB;
 		return $query_1;
 	}
 	
 	//cerco un valore nel database
 	if($QueryType == 2)
 	{
-	$query_2 = 'SELECT * FROM Prodotti WHERE ';
+	$query_2 = 'SELECT * FROM '.TB.' WHERE ';
 	foreach($parameter_name as $value)
 	{
 		if($_POST[$value]!= NULL ||$_POST[$value]!= '') //---->devo controllare che contenga almeno un carattere
@@ -106,7 +106,7 @@ function AddParams($QueryType)
 	//aggiungo un nuovo record
 	if($QueryType==3)
 	{
-		$query_3 = 'INSERT INTO Prodotti VALUES(DEFAULT,';
+		$query_3 = 'INSERT INTO '.TB.' VALUES(DEFAULT,';
 	
 		foreach($parameter_name as $value)
 		{
