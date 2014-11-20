@@ -254,4 +254,21 @@ function Commit()
 	}
 }
 
+//refresh
+function Refresh(xmlhttp)
+{
+	ResetInput();
+	LoadDatabase(xmlhttp);
+
+}
+
+
+
+
+
+
+
+
+
+
 
