@@ -129,7 +129,7 @@ function AddParams($QueryType)
 
 	if($QueryType==4)
 	{
-		$query_4 = 'DELETE FROM'.TB.' WHERE Id="'.$_POST['Id'].'"';
+		$query_4 = 'DELETE FROM '.TB.' WHERE Id="'.$_POST['Id'].'"';
 		return $query_4;
 	}
 }

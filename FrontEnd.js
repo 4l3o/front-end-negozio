@@ -100,8 +100,8 @@ function Packer(query)
 	//prezzo vendita dovrebbe essere calcolato direttamente dal sistema  
 	params = "query=" + query;
 	pattrn = /[A-z,1-9]+/;
-	pattrnId = /[1-9]/;
-	if( document.getElementById("function").value=="remove")
+	pattrnId = /[1-9]+/;
+	if(query=='4')
 	{
 		if(pattrnId.test(document.getElementById("Id").value))
 		{
