@@ -14,9 +14,9 @@ mysqli_close($con);
 
 function SendResponse($QueryType , $con ,$message='empty' )
 {
-	if($QueryType == 3)
+	if($QueryType == 3 || $QueryType == 4)
 	{
-		$query = AddParams( $QueryType);
+		$query = AddParams($QueryType);
 		mysqli_query($con,$query);
 		$log = $query;
 		//aggiorno i record visualizzati chiamando nuovamente la funzione con querytype = 1
@@ -125,6 +125,12 @@ function AddParams($QueryType)
 		}
 		$query_3 .=')';
 		return $query_3;	
+	}
+
+	if($QueryType==4)
+	{
+		$query_4 = 'DELETE FROM'.TB.' WHERE Id="'.$_POST['Id'].'"';
+		return $query_4;
 	}
 }
  

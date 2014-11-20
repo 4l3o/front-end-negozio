@@ -100,6 +100,15 @@ function Packer(query)
 	//prezzo vendita dovrebbe essere calcolato direttamente dal sistema  
 	params = "query=" + query;
 	pattrn = /[A-z,1-9]+/;
+	pattrnId = /[1-9]/;
+	if( document.getElementById("function").value=="remove")
+	{
+		if(pattrnId.test(document.getElementById("Id").value))
+		{
+			x=document.getElementById("Id").value;
+			params += "&Id="+x ;
+		}
+	}
 	if( pattrn.test(document.getElementById("Nome").value))
 	{	
 		x=document.getElementById("Nome").value;
@@ -178,7 +187,7 @@ function CheckParameter()
 
 function ResetInput ()
 {
-	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
+	var index = new Array ("Id","Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
 	for(var i = 0 ; i<index.length ; i ++)
 	{
 		
@@ -225,7 +234,7 @@ function NewRecord()
 function DeleteRecord()
 {
 	var query = "4";
-	var params = packer(query);
+	var params = Packer(query);
 	
 	//invio dati al server
 	SendData(xmlhttp,params);
@@ -261,6 +270,25 @@ function Refresh(xmlhttp)
 	LoadDatabase(xmlhttp);
 
 }
+
+//funzione per nascondere il campo id
+function hideId()
+{
+	if(document.getElementById("function").value == "remove")
+	{
+		document.getElementById("Id").disabled = false;
+	}
+	else
+	{
+		document.getElementById("Id").disabled = true;
+	}
+} 
+
+
+
+
+
+
 
 
 
