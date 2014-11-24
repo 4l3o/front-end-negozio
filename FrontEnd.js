@@ -101,7 +101,7 @@ function Packer(query)
 	params = "query=" + query;
 	pattrn = /[A-z,1-9]+/;
 	pattrnId = /[1-9]+/;
-	if(query=='4')
+	if(query=='4'||query=='5')
 	{
 		if(pattrnId.test(document.getElementById("Id").value))
 		{
@@ -240,8 +240,13 @@ function DeleteRecord()
 	SendData(xmlhttp,params);
 }
 //funzione di modifica
-function ModifyRecord()
+function UpdateRecord()
 {
+	var query="5";
+	var params = Packer(query);
+
+	SendData(xmlhttp,params);
+
 }
 
 
@@ -261,6 +266,10 @@ function Commit()
 	{
 		DeleteRecord();
 	}
+	if(select == "Update")
+	{
+		UpdateRecord();
+	}
 }
 
 //refresh
@@ -274,7 +283,7 @@ function Refresh(xmlhttp)
 //funzione per nascondere il campo id
 function hideId()
 {
-	if(document.getElementById("function").value == "remove")
+	if(document.getElementById("function").value == "remove"||document.getElementById("function").value == "update")
 	{
 		document.getElementById("Id").disabled = false;
 	}

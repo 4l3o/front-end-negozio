@@ -26,6 +26,7 @@ body
 		margin:30px 15px 15px 15px;
 		height:88%;
 		width:70%;
+		overflow:scroll;
 	}
 
 .terminal
