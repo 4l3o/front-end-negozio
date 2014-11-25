@@ -92,11 +92,20 @@ function AddParams($QueryType)
 	if($QueryType == 2)
 	{
 	$query_2 = 'SELECT * FROM '.TB.' WHERE ';
+	$tmp=0;
 	foreach($parameter_name as $value)
 	{
 		if($_POST[$value]!= NULL ||$_POST[$value]!= '') //---->devo controllare che contenga almeno un carattere
 		{
-			$query_2.=$value.'='.'"'.$_POST[$value].'"'.' ';
+			$tmp++;
+			if($tmp==1)
+			{
+				$query_2.=$value.'='.'"'.$_POST[$value].'"'.' ';
+			}
+			else
+			{
+				$query_2.='AND '.$value.'='.'"'.$_POST[$value].'"'.' ';
+			}
 		}		
 	}
 	return $query_2;
@@ -136,14 +145,23 @@ function AddParams($QueryType)
 	if($QueryType==5)
 	{
 		$query_5 = 'UPDATE '.TB.' set ' ;
+		$tmp =0;
 		foreach($parameter_name as $value)
 		{
 			if($_POST[$value]!= NULL ||$_POST[$value]!= '') //---->devo controllare che contenga almeno un carattere
-			{	
-				$query_5.=$value.'='.'"'.$_POST[$value].'"'.' ';
+			{
+				$tmp ++; 
+				if($tmp==1)
+				{
+					$query_5.=$value.'='.'"'.$_POST[$value].'"'.' ';
+				}	
+				else
+				{
+					$query_5.=', '.$value.'='.'"'.$_POST[$value].'"'.' ';
+				}		
 			}
-			//devo inserire le virgole 		
 		}
+		$query_5 .=' WHERE Id="'.$_POST['Id'].'"';
 
 	}
 }
