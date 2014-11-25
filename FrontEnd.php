@@ -16,7 +16,7 @@ function SendResponse($QueryType , $con ,$message='empty' )
 {
 	if($QueryType == 3 || $QueryType == 4 || $QueryType == 5)
 	{
-		$query = AddParams($QueryType);
+		$query = AddParams($QueryType);	
 		mysqli_query($con,$query);
 		$log = $query;
 		//aggiorno i record visualizzati chiamando nuovamente la funzione con querytype = 1
@@ -136,22 +136,26 @@ function AddParams($QueryType)
 		return $query_3;	
 	}
 
+
+	//rimuovo il record con id Id
 	if($QueryType==4)
 	{
 		$query_4 = 'DELETE FROM '.TB.' WHERE Id="'.$_POST['Id'].'"';
 		return $query_4;
 	}
 
+
+	//aggiorno il record con id Id
 	if($QueryType==5)
 	{
-		$query_5 = 'UPDATE '.TB.' set ' ;
-		$tmp =0;
+		$query_5 = 'UPDATE '.TB.' SET ' ;
+		$tmp1 =0;
 		foreach($parameter_name as $value)
 		{
-			if($_POST[$value]!= NULL ||$_POST[$value]!= '') //---->devo controllare che contenga almeno un carattere
+			if($_POST[$value]!= NULL ||$_POST[$value]!= '') 
 			{
-				$tmp ++; 
-				if($tmp==1)
+				$tmp1++; 
+				if($tmp1==1)
 				{
 					$query_5.=$value.'='.'"'.$_POST[$value].'"'.' ';
 				}	
@@ -162,7 +166,7 @@ function AddParams($QueryType)
 			}
 		}
 		$query_5 .=' WHERE Id="'.$_POST['Id'].'"';
-
+		return $query_5;
 	}
 }
  

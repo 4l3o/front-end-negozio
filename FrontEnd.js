@@ -244,7 +244,7 @@ function UpdateRecord()
 {
 	var query="5";
 	var params = Packer(query);
-
+	
 	SendData(xmlhttp,params);
 
 }
@@ -266,7 +266,7 @@ function Commit()
 	{
 		DeleteRecord();
 	}
-	if(select == "Update")
+	if(select == "update")
 	{
 		UpdateRecord();
 	}
