@@ -1,4 +1,5 @@
 ----> rendere config.php più "potente per le configurazioni"
+---->sistemare controllo regexp di id nel js
 ----> implementare modifica dei record 
 ---->terminare il sistema di controllo dei campi server/client
 ---->impostare proprieta css per far scorrere la tabella

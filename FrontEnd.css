@@ -95,7 +95,10 @@ p
 		word-wrap: break-word;
 	}
 
-
+p.qerr
+	{	
+		color:#C00000;
+	}
 p.err 
 	{
 		color:#CC0000;

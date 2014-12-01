@@ -159,30 +159,41 @@ function Packer(query)
 //DA CONTROLLARE
 //funzione che controlla la correttezza dei parametri
 //da chiamare ogni volta che esco da un campo (sblocca il pulsante per l'invio dati ) 
-function CheckParameter()
+function CheckParameter(query)
 {   
 	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
-	var pattrn = /[^a-z,A-Z,0-9, ]/;//ricerco tutti i caratteri diversi da a-z,0-9,A-Z e spazio(voglio la possibilit di inserire campi vuoti o con degli spazi)
-	var testResult = true;//<-- problema il campo id andrebbe tetsato separatamente @TODO definire i campi obbligatori per l'inserimento (aggiunta di un record)
-	for(var i = 0 ; i<index.length ; i ++)
+	var pattrn = /[^a-z,A-Z,0-9, ]/;
+	var pattrnId = /[^1-9]/;
+	var err="valore non corretto per i seguenti campi: ";
+	var testResult = true;
+	if(query=='4'||query=='5')
 	{
-		if(pattrn.test(document.getElementById(index[i]).value))
+		if(pattrnId.test(document.getElementById("Id")))
 		{
-			testResult = false; 
+			testResul=false;
+			err += " Id  ";
 		}
 	}
-	//se test reult  true ha passatotutti i test
-	if(testResult)
-	{
-	
-		document.getElementById("submit").disabled = false;
-	}
-	else
+	for(var i = 0 ; i<index.length ; i ++)
 	{
 
-		document.getElementById("submit").disabled = true;
+		if(document.getElementById(index[i]).value)
+		{
+			if(pattrn.test(document.getElementById(index[i]).value))
+			{
+				testResult = false;
+			       	err +=" "+index[i]+" ";	
+			}
+		}
 	}
-	 
+	if(!testResult)//levare l'esecuzione nell'html
+	{
+		var log = "<p class=\"qerr\">"+err+"</p>";
+		document.getElementById("log").innerHTML += log;
+	       	return 1;	
+			
+	}
+	return 0;
 }
 
 function ResetInput ()
@@ -203,10 +214,12 @@ function ResetInput ()
 
 //funzione che carica l'intera tabella al caricamento
 function LoadDatabase(xmlhttp)
-{
-
+{	
 	var params = "query=1";
-	SendData(xmlhttp,params);
+	if(CheckParameter(query))
+	{
+		SendData(xmlhttp,params);
+	}
 }
 
 //funzione per la ricerca di valori nel database
@@ -216,7 +229,11 @@ function Search()
 	var query ="2";
 	var params = Packer(query);
 	//invio parametri al server
-	SendData(xmlhttp,params);	
+	if(CheckParameter(query))
+	{
+		SendData(xmlhttp,params);
+	}
+	
 }
 
 //funzione per aggiungere un record al database 
@@ -225,9 +242,11 @@ function NewRecord()
 
 	var query ="3";
 	var params = Packer(query);
-	
-	//invio i dati al server
-	SendData(xmlhttp,params);
+	if(CheckParameter(query))
+	{
+		SendData(xmlhttp,params);
+	}
+
 }
 
 //funzione per la rimozione di un record dal database
@@ -235,18 +254,20 @@ function DeleteRecord()
 {
 	var query = "4";
 	var params = Packer(query);
-	
-	//invio dati al server
-	SendData(xmlhttp,params);
+	if(CheckParameter(query))
+	{
+		SendData(xmlhttp,params);
+	}
 }
 //funzione di modifica
 function UpdateRecord()
 {
 	var query="5";
 	var params = Packer(query);
-	
-	SendData(xmlhttp,params);
-
+	if(CheckParameter(query))
+	{
+		SendData(xmlhttp,params);
+	}
 }
 
 

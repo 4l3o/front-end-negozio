@@ -10,7 +10,7 @@ SendResponse($QueryType , $con);
 mysqli_close($con);
 
 
-
+//------------------------------------------------------------------------------
 
 function SendResponse($QueryType , $con ,$message='empty' )
 {
