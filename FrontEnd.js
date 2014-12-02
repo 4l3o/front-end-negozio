@@ -161,28 +161,28 @@ function Packer(query)
 //da chiamare ogni volta che esco da un campo (sblocca il pulsante per l'invio dati ) 
 function CheckParameter(query)
 {   
-	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
-	var pattrn = /[^a-z,A-Z,0-9, ]/;
-	var pattrnId = /[^1-9]/;
-	var err="valore non corretto per i seguenti campi: ";
+	var index = {Id:/[^1-9]/, Nome:/[^a-z,A-Z,0-9, ]/, Marca:/[^a-z,A-Z,0-9, ]/,PrezzoVendita:/[^1-9]/,PrezzoAcquisto:/[^1-9]/,Iva:/[^1-9]/}
+	var err=">>> valore non corretto per i seguenti campi: ";
 	var testResult = true;
-	if(query=='4'||query=='5')
+	for(x in index)
 	{
-		if(pattrnId.test(document.getElementById("Id")))
+		if(query=='4'||query=='5')
 		{
-			testResul=false;
-			err += " Id  ";
-		}
-	}
-	for(var i = 0 ; i<index.length ; i ++)
-	{
-
-		if(document.getElementById(index[i]).value)
-		{
-			if(pattrn.test(document.getElementById(index[i]).value))
+			if(index[x].test(document.getElementById("Id")))
 			{
-				testResult = false;
-			       	err +=" "+index[i]+" ";	
+				testResul=false;
+				err += " Id  ";
+			}
+		}
+		else
+		{	
+			if(document.getElementById(x).value)
+			{
+				if(index[x].test(document.getElementById(x).value))
+				{
+					testResult = false;
+			       		err +=" "+x+" ";	
+				}
 			}
 		}
 	}
@@ -190,10 +190,10 @@ function CheckParameter(query)
 	{
 		var log = "<p class=\"qerr\">"+err+"</p>";
 		document.getElementById("log").innerHTML += log;
-	       	return 1;	
+	       	return false;	
 			
 	}
-	return 0;
+	return true;
 }
 
 function ResetInput ()
@@ -207,7 +207,6 @@ function ResetInput ()
 	}
 	
 
-	document.getElementById("submit").disabled = true;
 }
 
 //************************************* FUNZIONI SPECIFICHE**********************************************************************
@@ -216,10 +215,7 @@ function ResetInput ()
 function LoadDatabase(xmlhttp)
 {	
 	var params = "query=1";
-	if(CheckParameter(query))
-	{
-		SendData(xmlhttp,params);
-	}
+	SendData(xmlhttp,params);
 }
 
 //funzione per la ricerca di valori nel database
@@ -227,10 +223,9 @@ function Search()
 {
 
 	var query ="2";
-	var params = Packer(query);
-	//invio parametri al server
 	if(CheckParameter(query))
 	{
+		var params = Packer(query);
 		SendData(xmlhttp,params);
 	}
 	
@@ -241,9 +236,9 @@ function NewRecord()
 {
 
 	var query ="3";
-	var params = Packer(query);
 	if(CheckParameter(query))
 	{
+		var params = Packer(query);
 		SendData(xmlhttp,params);
 	}
 
@@ -253,9 +248,9 @@ function NewRecord()
 function DeleteRecord()
 {
 	var query = "4";
-	var params = Packer(query);
 	if(CheckParameter(query))
 	{
+		var params = Packer(query);
 		SendData(xmlhttp,params);
 	}
 }
@@ -263,9 +258,9 @@ function DeleteRecord()
 function UpdateRecord()
 {
 	var query="5";
-	var params = Packer(query);
 	if(CheckParameter(query))
 	{
+		var params = Packer(query);
 		SendData(xmlhttp,params);
 	}
 }
