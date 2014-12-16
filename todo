@@ -1,11 +1,5 @@
 ----> rendere config.php più "potente per le configurazioni"
----->sistemare controllo regexp di id nel js
-----> implementare modifica dei record 
----->terminare il sistema di controllo dei campi server/client
----->impostare proprieta css per far scorrere la tabella
 ----> aggiungere > < == per i campi di ricerca numerici
-----> rendere i campi minuscoli , case insensitive (forse non importa)
-----> selezione produttori su box a discesa(optional)
-----> se i campi sono tutti vuoti i pulsanti devono essere disabilitati
+----> aggiungere una pagina con le faq/ guida utilizzo
 ---->mettere per bottoni immagini più belline !!!!!(custom button) 
-
+----> stampare errori mysql

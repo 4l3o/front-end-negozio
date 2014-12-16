@@ -15,7 +15,7 @@ function CreateXmlHttpRequestObject()
 	var xmlhttp = new XMLHttpRequest();
 	if(!xmlhttp)
 	{
-		var log="<p class=\"err\">errore nella creazione dell'oggetto xmlhttp</p>";
+		var log="<p class=\"err\">>>> errore nella creazione dell'oggetto xmlhttp</p>";
 		mydiv = document.getElementById("log");
 		mydiv.innerHTML += log; 
 	}
@@ -40,7 +40,7 @@ function SendData (xmlhttp , params )
 		}	
 		catch(e)
 		{
-			var log="<p class=\"err\">errore di connessione al server</p>";
+			var log="<p class=\"err\">>>> errore di connessione al server</p>";
 			mydiv = document.getElementById("log");
 			mydiv.innerHTML += log; 
 		}
@@ -65,14 +65,14 @@ function HandleRequestStateChange()
 			} 
 			catch(e)
 			{
-				var log="<p class=\"err\">errore nella lettura dei dati</p>";
+				var log="<p class=\"err\">>>> errore nella lettura dei dati</p>";
 				mydiv = document.getElementById("log");
 				mydiv.innerHTML += log; 
 			}
 		}
 		else
 		{
-			var log ="<p class=\"err\">errrore nella ricezione dei dati</p>";
+			var log ="<p class=\"err\">>>> errrore nella ricezione dei dati</p>";
 			mydiv = document.getElementById("log");
 			mydiv.innerHTML += log; 
 		}
@@ -156,9 +156,8 @@ function Packer(query)
 	return params;
 	*/
 }
-//DA CONTROLLARE
-//funzione che controlla la correttezza dei parametri
-//da chiamare ogni volta che esco da un campo (sblocca il pulsante per l'invio dati ) 
+
+
 function CheckParameter(query)
 {   
 	var index = {Id:/[^1-9]/, Nome:/[^a-z,A-Z,0-9, ]/, Marca:/[^a-z,A-Z,0-9, ]/,PrezzoVendita:/[^1-9]/,PrezzoAcquisto:/[^1-9]/,Iva:/[^1-9]/}
@@ -297,16 +296,10 @@ function Refresh(xmlhttp)
 }
 
 //funzione per nascondere il campo id
-function hideId()
-{
-	if(document.getElementById("function").value == "remove"||document.getElementById("function").value == "update")
-	{
-		document.getElementById("Id").disabled = false;
-	}
-	else
-	{
-		document.getElementById("Id").disabled = true;
-	}
+function hide()
+{	
+		document.getElementById("Id").disabled =(document.getElementById("function").value=="remove"||document.getElementById("function").value=="update")?false:true;
+//		document.getElementById("mode").disabled =(document.getElementById("function").value=="search")?false:true;
 } 
 
 
