@@ -3,3 +3,5 @@
 ----> aggiungere una pagina con le faq/ guida utilizzo
 ---->mettere per bottoni immagini più belline !!!!!(custom button) 
 ----> stampare errori mysql
+----> controllare ridondanza controllo campi in frontend.js
+----> cambaire prezzo acquisto e prezzo vendita con magazzino 

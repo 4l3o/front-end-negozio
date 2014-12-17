@@ -9,30 +9,55 @@
 		<header id="return"><!--inserire link per ritornare all'app--></header>
 		<article>
 				<h1 class="title">Documentazione</h1>
-				<section id="interfaccia">	
+				<section id="interfaccia">
+					<h2 class="title">Interfaccia</h2>
 					<p class="paragraph">l'interfaccia dell'applicazione si presenta nel seguente modo</p>
 					<figure>
-					<!--inserire immagine qui -->		
+						<img src="interface.png" height="658" width="1342" id="interface">	
 					</figure>
 					<ol type="I">
 						<li>
-							<h3>Tabella</h3>
-							<p class="description">qui verranno visualizzati i record presenti nel database  </p>
+							<h3 class="title">Tabella</h3>
+							qui verranno visualizzati i record presenti nel database  
 						</li>
 						<li>
-							<h3>Blocco di imput</h3>
+							<h3 class="title">Blocco di imput</h3>
 							<p>qui sono contenuti i comandi per l'utilizzo dell'applicazione</p>
+							<ul>
+								<li>campi di inserimento</li>
+								<li>menù a discesa per la selezione dell'operazione</li>
+								<li>pulsante Submit per l'invio dei dati </li>
+								<li>pulsante Refresh per ricaricare la tabella e resettare i campi di inserimento</li>
+							</ul>
 						</li>
 						<li>
-							<h3>Log</h3>
+							<h3 class="title">Log</h3>
 							<p>qui vengono visualizzate informazioni relative all'esecuzione delle quesry e eventuali messaggi di errore</p>
 							<!--inserire distinzione colori-->
 						</li>		
-
-
 					</ol>
 				</section>
 				<section id="regole">
+					<h2 class="title">Funzionamento</h2>
+					<ul>
+						<li>Selezionare l'operzione da effettuare dal menu a discesa 
+							<ul>
+								<li>Add : aggiunge un record al database</li>
+								<li>Search : ricerca un record nel database </li>	
+								<li>Remove : rimuove il record , con Id corrispondente , dal database</li>
+								<li>Update : aggiorna i campi del record con Id corrispondente</li>
+							</ul>
+						</li>
+						<li>inserire i valori desiderati nei rispettivi campi secondo le seguenti regole :
+							<ul>
+								<li>i campi Nome e Marca accettano solamente valori alfanumerici e spazi </li>
+								<li>i campi Id , Prezzo acquisto ,Prezzo vendita e Iva accetano solamente valori numerici interi o decimali</li>
+							</ul>	
+						<li>
+						<li>premere il pulsante Submit per inviare i dati o il pulsante Refresh per inizializzare nuovamente l'interfaccia</li>
+
+					</ul>
+
 				</section>
 		</article>	
 	</body>
