@@ -108,4 +108,29 @@ p.query
 	{	
 		color:#191963;	
 	}
-
+.title 
+	{
+		color:#ffffff;
+	}
+img
+	{
+		border:2px solid #194169;
+	}
+.color
+	{
+		height:20px;
+		width:40px;
+		display:inline-block;
+	}
+#query
+	{
+		background-color:#191963;
+	}
+#err
+	{
+		background-color:#CC0000;
+	}
+#qerr
+	{
+		background-color:#C00000;
+	}

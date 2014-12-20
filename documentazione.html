@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="FrontEnd.css">
 	</head>
 	<body>
-		<header id="return"><!--inserire link per ritornare all'app--></header>
+		<header id="return"><a href="index.html">indietro</a></header>
 		<article>
 				<h1 class="title">Documentazione</h1>
 				<section id="interfaccia">
@@ -32,8 +32,12 @@
 						</li>
 						<li>
 							<h3 class="title">Log</h3>
-							<p>qui vengono visualizzate informazioni relative all'esecuzione delle quesry e eventuali messaggi di errore</p>
-							<!--inserire distinzione colori-->
+							<p>qui vengono visualizzate informazioni relative all'esecuzione delle quesry e eventuali messaggi di errore,secondo il seguente schema di colori</p>
+							<ul>
+								<li><div id="query" class="color"></div> informazioni sulla query</li>
+								<li><div id="err" class="color"></div> errori releativi alla connessione</li>
+								<li><div id="qerr" class="color"></div> errori relativi alla query</li>
+							</ul>
 						</li>		
 					</ol>
 				</section>
@@ -53,7 +57,6 @@
 								<li>i campi Nome e Marca accettano solamente valori alfanumerici e spazi </li>
 								<li>i campi Id , Prezzo acquisto ,Prezzo vendita e Iva accetano solamente valori numerici interi o decimali</li>
 							</ul>	
-						<li>
 						<li>premere il pulsante Submit per inviare i dati o il pulsante Refresh per inizializzare nuovamente l'interfaccia</li>
 
 					</ul>
