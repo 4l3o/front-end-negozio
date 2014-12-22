@@ -1,7 +1,6 @@
 ----> rendere config.php più "potente per le configurazioni"
 ----> aggiungere > < == per i campi di ricerca numerici
-----> aggiungere una pagina con le faq/ guida utilizzo
+----> formattare la pagina con le faq/ guida utilizzo
 ---->mettere per bottoni immagini più belline !!!!!(custom button) 
-----> stampare errori mysql
 ----> controllare ridondanza controllo campi in frontend.js
 ----> cambaire prezzo acquisto e prezzo vendita con magazzino 

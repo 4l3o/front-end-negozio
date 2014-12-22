@@ -12,32 +12,62 @@ mysqli_close($con);
 
 //------------------------------------------------------------------------------
 
-function SendResponse($QueryType , $con ,$message='empty' )
+function SendResponse($QueryType , $con ,$type='empty',$message='empty' )
 {
 	if($QueryType == 3 || $QueryType == 4 || $QueryType == 5)
 	{
-		$query = AddParams($QueryType);	
-		mysqli_query($con,$query);
-		$log = $query;
+		$query = AddParams($QueryType);
+		$log;	
+		$Ltype;
+		if(!mysqli_query($con,$query))
+		{
+			$log='esecuzione query fallita : '.mysqli_error($con);	
+			$Ltype='qerr';
+		}
+		else
+		{
+			$log =$query;
+			$Ltype ='query';
+		}	
 		//aggiorno i record visualizzati chiamando nuovamente la funzione con querytype = 1
 		$QueryType = 1;
-		SendResponse($QueryType , $con,$log);
+		SendResponse($QueryType , $con,$Ltype,$log);
 	}
 	else
 	{
 		
 	 	$query = AddParams($QueryType);	
 	 	$result = mysqli_query($con,$query);
-		$log;	
-		if($message == 'empty')
-		{
-			$log=$query;
+		$log;
+		$Ltype;
+		if($result)
+		{	
+			if($message == 'empty')
+			{
+				$log=$query;
+				$Ltype='query';
+			}
+			else
+			{
+				$log=$message;
+				$Ltype=$type;
+			}
 		}
 		else
 		{
-			$log=$message;
+			if($message == 'empty')
+			{
+				$log='esecuzione query fallita : '.mysqli_error($con).'</p>' ;	
+				$Ltype='qerr';
+			}
+			else
+			{
+				$log=$message;
+				$Ltype=$type;
+			}
+		
 		}
-	 	PrintResult($result,$log);
+	 	PrintResult($result,$log,$Ltype);
 	}
 	
 }
@@ -46,7 +76,7 @@ function SendResponse($QueryType , $con ,$message='empty' )
 
 //funzione per il ritorno dei valori
 //genera la risposta in formato xml 
-function PrintResult($result,$log)
+function PrintResult($result,$log,$type)
 { 	
 	//nuova funzione adattata all'utilizzo di xml 
 	header( "content-type: application/xml; charset=UTF-8" );	
@@ -68,6 +98,8 @@ function PrintResult($result,$log)
 
 	$xmlLog = $xmlDoc->createElement('log',$log);
 	$xmlRoot->appendChild($xmlLog);
+	$xmlLType = $xmlDoc->createElement('type',$type);
+	$xmlRoot->appendChild($xmlLType);
 
 	//stampa del file xml
 	echo $xmlDoc->saveXML();

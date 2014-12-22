@@ -15,7 +15,8 @@ function CreateXmlHttpRequestObject()
 	var xmlhttp = new XMLHttpRequest();
 	if(!xmlhttp)
 	{
-		var log="<p class=\"err\">>>> errore nella creazione dell'oggetto xmlhttp</p>";
+		var log="errore nella creazione dell'oggetto xmlhttp";
+		PrintLog(log,"err");
 		mydiv = document.getElementById("log");
 		mydiv.innerHTML += log; 
 	}
@@ -40,9 +41,8 @@ function SendData (xmlhttp , params )
 		}	
 		catch(e)
 		{
-			var log="<p class=\"err\">>>> errore di connessione al server</p>";
-			mydiv = document.getElementById("log");
-			mydiv.innerHTML += log; 
+			var log="errore di connessione al server";
+			PrintLog(log,"err"); 
 		}
 	}
 }
@@ -65,16 +65,14 @@ function HandleRequestStateChange()
 			} 
 			catch(e)
 			{
-				var log="<p class=\"err\">>>> errore nella lettura dei dati</p>";
-				mydiv = document.getElementById("log");
-				mydiv.innerHTML += log; 
+				var log="errore nella lettura dei dati";
+				PrintLog(log ,"err");
 			}
 		}
 		else
 		{
-			var log ="<p class=\"err\">>>> errrore nella ricezione dei dati</p>";
-			mydiv = document.getElementById("log");
-			mydiv.innerHTML += log; 
+			var log ="errrore nella ricezione dei dati";
+			PrintLog(log,"err"); 
 		}
 	}	
 }
@@ -86,14 +84,21 @@ function ServerResponse()
 	var response = xmlhttp.responseXML;
 	var mydiv = document.getElementById("mydiv");
 	mydiv.innerHTML = response.getElementsByTagName("result")[0].childNodes[0].nodeValue;
-	var log = "<p class=\"query\">"+" >>> " + response.getElementsByTagName("log")[0].childNodes[0].nodeValue;+"</p>"
-	mydiv = document.getElementById("log");
-	mydiv.innerHTML += log; //TODO aggiungere un pulsante per resettare il logbox 
+	var log =response.getElementsByTagName("log")[0].childNodes[0].nodeValue;
+	var type =response.getElementsByTagName("type")[0].childNodes[0].nodeValue;
+	PrintLog(log,type);
 	ResetInput();
 
 	
 } 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//funzione per la stampa del log
+function PrintLog(log,type)
+{
+	var message = "<p class=\""+type+"\">-->"+ log+"</p>";
+	mydiv = document.getElementById("log");
+	mydiv.innerHTML += message;
+}
 //funzione per l'inpacchettamento dei parametri
 function Packer(query)
 {       
@@ -161,7 +166,7 @@ function Packer(query)
 function CheckParameter(query)
 {   
 	var index = {Id:/[^1-9]/, Nome:/[^a-z,A-Z,0-9, ]/, Marca:/[^a-z,A-Z,0-9, ]/,PrezzoVendita:/[^1-9]/,PrezzoAcquisto:/[^1-9]/,Iva:/[^1-9]/}
-	var err=">>> valore non corretto per i seguenti campi: ";
+	var err="valore non corretto per i seguenti campi: ";
 	var testResult = true;
 	for(x in index)
 	{
@@ -187,8 +192,8 @@ function CheckParameter(query)
 	}
 	if(!testResult)//levare l'esecuzione nell'html
 	{
-		var log = "<p class=\"qerr\">"+err+"</p>";
-		document.getElementById("log").innerHTML += log;
+		var log = err;
+		PrintLog(log,"qerr");
 	       	return false;	
 			
 	}
