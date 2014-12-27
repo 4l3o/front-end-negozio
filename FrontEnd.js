@@ -126,10 +126,10 @@ function Packer(query)
 		params += "&Marca="+x;
 	}
 
-	if(  pattrn.test(document.getElementById("PrezzoVendita").value))
+	if(  pattrn.test(document.getElementById("Magazzino").value))
 	{
-		x=document.getElementById('PrezzoVendita').value;	
-		params += "&Prezzo_Vendita="+x;
+		x=document.getElementById('Magazzino').value;	
+		params += "&Magazzino="+x;
 	}
 
 	if( pattrn.test(document.getElementById("PrezzoAcquisto").value))
@@ -145,27 +145,12 @@ function Packer(query)
 	}
 
 	return params;
-	/*
-	nuova funzione ottimizzata
-	params = "query=" + query;
-	var pattrn = /[A-z,1-9]+/;
-	var index = new Array ("Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
-	for(var i = 0;i<index.length;i++)
-	{
-		if(document.getElementById(index[i]).value||pattrn.test(document.getElementById(index[i]).value))
-		{
-			params += "&" + index[i] + "=" + document.getElementById(index[i]).value;
-		}
-	}
-
-	return params;
-	*/
 }
 
 
 function CheckParameter(query)
 {   
-	var index = {Id:/[^1-9]/, Nome:/[^a-z,A-Z,0-9, ]/, Marca:/[^a-z,A-Z,0-9, ]/,PrezzoVendita:/[^1-9]/,PrezzoAcquisto:/[^1-9]/,Iva:/[^1-9]/}
+	var index = {Id:/[^1-9]/, Nome:/[^a-z,A-Z,0-9, ]/, Marca:/[^a-z,A-Z,0-9, ]/,Magazzino:/[^1-9]/,PrezzoAcquisto:/[^1-9]/,Iva:/[^1-9]/}
 	var err="valore non corretto per i seguenti campi: ";
 	var testResult = true;
 	for(x in index)
@@ -202,7 +187,7 @@ function CheckParameter(query)
 
 function ResetInput ()
 {
-	var index = new Array ("Id","Nome", "Marca","PrezzoVendita","PrezzoAcquisto","Iva");
+	var index = new Array ("Id","Nome", "Marca","Magazzino","PrezzoAcquisto","Iva");
 	for(var i = 0 ; i<index.length ; i ++)
 	{
 		

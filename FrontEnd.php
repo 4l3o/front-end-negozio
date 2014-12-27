@@ -86,12 +86,12 @@ function PrintResult($result,$log,$type)
 	$xmlRoot= $xmlDoc->appendChild($xmlRoot);
 	$xmlResult = $xmlDoc->createElement('result');
 	$xmlRoot->appendChild($xmlResult);
-	$int = '<th>Id</th><th>Nome</th><th>Marca</th><th>Prezzo Vendita</th><th>Prezzo Acquisto</th><th>Iva</th>'; 
+	$int = '<th>Id</th><th>Nome</th><th>Marca</th><th>Magazzino</th><th>Prezzo Acquisto</th><th>Iva</th>'; 
 	$pint = $xmlDoc->createTextNode($int);
 	$xmlResult->appendChild($pint);
 	while($row = mysqli_fetch_array($result))
 	{	
-		$e ='<tr>'.'<td>'.$row['Id'].'</td>'.'<td>'.$row['Nome'].'</td>'.'<td>'.$row['Marca'].'</td>'.'<td>'.$row['Prezzo_Vendita'].'</td>'.'<td>'.$row['Prezzo_Acquisto'].'</td>'.'<td>'.$row['Iva'].'</td>'.'</tr>';
+		$e ='<tr>'.'<td>'.$row['Id'].'</td>'.'<td>'.$row['Nome'].'</td>'.'<td>'.$row['Marca'].'</td>'.'<td>'.$row['Magazzino'].'</td>'.'<td>'.$row['Prezzo_Acquisto'].'</td>'.'<td>'.$row['Iva'].'</td>'.'</tr>';
 		$p = $xmlDoc->createTextNode($e);
 		$xmlResult->appendChild($p);
 	}
@@ -112,7 +112,7 @@ function PrintResult($result,$log,$type)
 function AddParams($QueryType)
 {
 	//global $parameter_name; ----->non funziona 
-	$parameter_name = array('Nome','Marca','Prezzo_Vendita','Prezzo_Acquisto','Iva');
+	$parameter_name = array('Nome','Marca','Magazzino','Prezzo_Acquisto','Iva');
 	//carico il database
 	if($QueryType ==1)
 	{

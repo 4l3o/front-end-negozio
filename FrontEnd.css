@@ -31,6 +31,7 @@ body
 
 .terminal
 	{
+		position:relative;
 		font-family: "Courier New" , monospace;
 		background-color: #CCDBEB;
 		border: 1px solid #194169;
@@ -38,12 +39,15 @@ body
 		height:25%;
 		width:100%;
 		font-size: 0.8em;
-		padding-left:10px;
 		overflow:scroll;
+		padding-left:5px;
+		padding-right:5px;
+
 	}
 
 .controller 
 	{	
+		position:relative;
 		background-color: #CCDBEB;
 		border: 1px solid #194169;
 		font-family: "Trebuchet MS";
@@ -110,7 +114,7 @@ p.query
 	}
 .title 
 	{
-		color:#ffffff;
+		color:#E60000;
 	}
 img
 	{
@@ -133,4 +137,26 @@ img
 #qerr
 	{
 		background-color:#C00000;
+	}
+#reference
+	{
+		position:absolute;
+		bottom:10px;	
+	}
+#return
+	{	
+		background-color: #CCDBEB;
+		position:relative;
+		margin-right:15px;	
+		text-align:center;
+		border:1px dashed;
+	}
+section
+	{
+		position:relative;
+		margin-right:15px;	
+		margin-top:10px;
+		background-color: #CCDBEB;
+		border:1px dashed;
+		padding-left:5px;
 	}
