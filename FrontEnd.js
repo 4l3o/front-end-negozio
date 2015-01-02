@@ -1,5 +1,5 @@
 //la comunicazione server-client avviene tutta attraverso ajax
-
+var index = {Id:/[^1-9]/, Nome:/[^a-z,A-Z,0-9, ]/, Marca:/[^a-z,A-Z,0-9, ]/,Magazzino:/[^1-9]/,PrezzoAcquisto:/[^1-9]/,Iva:/[^1-9]/}
 //creao un istanza di xmlhttprequest
 var xmlhttp = CreateXmlHttpRequestObject();
 
@@ -100,57 +100,24 @@ function PrintLog(log,type)
 	mydiv.innerHTML += message;
 }
 //funzione per l'inpacchettamento dei parametri
-function Packer(query)
-{       
-	//prezzo vendita dovrebbe essere calcolato direttamente dal sistema  
-	params = "query=" + query;
-	pattrn = /[A-z,1-9]+/;
-	pattrnId = /[1-9]+/;
-	if(query=='4'||query=='5')
+function Packer(query,index)
+{       	
+	params = "query=" + query;		
+	for(var key in index)
 	{
-		if(pattrnId.test(document.getElementById("Id").value))
+		if(document.getElementById(key).value)
 		{
-			x=document.getElementById("Id").value;
-			params += "&Id="+x ;
-		}
+			x=document.getElementById(key).value;	
+			params += "&"+key+"="+x;
+		}		
 	}
-	if( pattrn.test(document.getElementById("Nome").value))
-	{	
-		x=document.getElementById("Nome").value;
-		params += "&Nome="+x ;
-	}
+	return params;	
 
-	if( pattrn.test(document.getElementById("Marca").value))
-	{
-		x=document.getElementById('Marca').value;	
-		params += "&Marca="+x;
-	}
-
-	if(  pattrn.test(document.getElementById("Magazzino").value))
-	{
-		x=document.getElementById('Magazzino').value;	
-		params += "&Magazzino="+x;
-	}
-
-	if( pattrn.test(document.getElementById("PrezzoAcquisto").value))
-	{
-		x=document.getElementById('PrezzoAcquisto').value;	
-		params += "&Prezzo_Acquisto="+x;
-	}
-
-	if( pattrn.test(document.getElementById("Iva").value))
-	{
-		x=document.getElementById('Iva').value;	
-		params += "&Iva="+x;
-	}
-
-	return params;
 }
 
 
-function CheckParameter(query)
+function CheckParameter(query,index)
 {   
-	var index = {Id:/[^1-9]/, Nome:/[^a-z,A-Z,0-9, ]/, Marca:/[^a-z,A-Z,0-9, ]/,Magazzino:/[^1-9]/,PrezzoAcquisto:/[^1-9]/,Iva:/[^1-9]/}
 	var err="valore non corretto per i seguenti campi: ";
 	var testResult = true;
 	for(x in index)
@@ -212,9 +179,9 @@ function Search()
 {
 
 	var query ="2";
-	if(CheckParameter(query))
+	if(CheckParameter(query,index))
 	{
-		var params = Packer(query);
+		var params = Packer(query,index);
 		SendData(xmlhttp,params);
 	}
 	
@@ -225,9 +192,9 @@ function NewRecord()
 {
 
 	var query ="3";
-	if(CheckParameter(query))
+	if(CheckParameter(query,index))
 	{
-		var params = Packer(query);
+		var params = Packer(query,index);
 		SendData(xmlhttp,params);
 	}
 
@@ -237,9 +204,9 @@ function NewRecord()
 function DeleteRecord()
 {
 	var query = "4";
-	if(CheckParameter(query))
+	if(CheckParameter(query,index))
 	{
-		var params = Packer(query);
+		var params = Packer(query,index);
 		SendData(xmlhttp,params);
 	}
 }
@@ -247,9 +214,9 @@ function DeleteRecord()
 function UpdateRecord()
 {
 	var query="5";
-	if(CheckParameter(query))
+	if(CheckParameter(query,index))
 	{
-		var params = Packer(query);
+		var params = Packer(query,index);
 		SendData(xmlhttp,params);
 	}
 }

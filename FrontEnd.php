@@ -112,7 +112,7 @@ function PrintResult($result,$log,$type)
 function AddParams($QueryType)
 {
 	//global $parameter_name; ----->non funziona 
-	$parameter_name = array('Nome','Marca','Magazzino','Prezzo_Acquisto','Iva');
+	$parameter_name = array('Nome','Marca','Magazzino','PrezzoAcquisto','Iva');
 	//carico il database
 	if($QueryType ==1)
 	{
