@@ -257,6 +257,14 @@ function hide()
 {	
 		document.getElementById("Id").disabled =(document.getElementById("function").value=="remove"||document.getElementById("function").value=="update")?false:true;
 //		document.getElementById("mode").disabled =(document.getElementById("function").value=="search")?false:true;
+		var hide=(document.getElementById("function").value=="remove")?true:false;
+		for(key in index)
+		{
+			if(key !="Id")
+			{
+				document.getElementById(key).disabled = hide;
+			}
+		}
 } 
 
 
