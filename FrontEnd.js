@@ -1,5 +1,5 @@
 //la comunicazione server-client avviene tutta attraverso ajax
-var index = {Id:/[^1-9]/, Nome:/[^a-z,A-Z,0-9, ]/, Marca:/[^a-z,A-Z,0-9, ]/,Magazzino:/[^1-9]/,PrezzoAcquisto:/[^1-9]/,Iva:/[^1-9]/}
+var index = {Id:/[^0-9]/, Nome:/[^a-z,A-Z,0-9, ]/, Marca:/[^a-z,A-Z,0-9, ]/,Magazzino:/[^0-9]/,PrezzoAcquisto:/[^0-9]/,Iva:/[^0-9]/}
 //creao un istanza di xmlhttprequest
 var xmlhttp = CreateXmlHttpRequestObject();
 
@@ -17,8 +17,6 @@ function CreateXmlHttpRequestObject()
 	{
 		var log="errore nella creazione dell'oggetto xmlhttp";
 		PrintLog(log,"err");
-		mydiv = document.getElementById("log");
-		mydiv.innerHTML += log; 
 	}
 	else
 	{
@@ -83,7 +81,11 @@ function ServerResponse()
 	//prende la risposta sottoforma di documento XML
 	var response = xmlhttp.responseXML;
 	var mydiv = document.getElementById("mydiv");
-	mydiv.innerHTML = response.getElementsByTagName("result")[0].childNodes[0].nodeValue;
+	//mydiv.innerHTML = response.getElementsByTagName("result")[0].childNodes[0].nodeValue;
+	
+	var content =response.getElementsByTagName("result")[0].childNodes[0].nodeValue;
+	mydiv.textContent=content;
+
 	var log =response.getElementsByTagName("log")[0].childNodes[0].nodeValue;
 	var type =response.getElementsByTagName("type")[0].childNodes[0].nodeValue;
 	PrintLog(log,type);
@@ -267,7 +269,16 @@ function hide()
 		}
 } 
 
-
+function Inventario()
+{
+	LoadDatabase(xmlhttp);
+	var content = document.getElementById("mydiv").innerHTML;
+	var newWindow = window.open("","newWindow");
+	newWindow.document.write("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"print.css\"></head><body></body></html>");
+	//newWindow.document.head.innerHTML="<link rel=\"stylesheet\" type=\"text/css\" href=\"print.css\">";
+	newWindow.document.body.innerHTML="<div><table>"+content+"</table></div>";
+	newWindow.focus();
+}
 
 
 

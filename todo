@@ -1,5 +1,14 @@
 ----> rendere config.php più "potente per le configurazioni"
 ----> aggiungere > < == per i campi di ricerca numerici
 ---->mettere per bottoni immagini più belline !!!!!(custom button)  
+----> premere invio per submit
+----> prezzo aggiungere virgola punto + documentazione
+----> aggiungere lunhezza masima campi in documentazione e html
+------>aggiornare immmagine documentazione
+------>autoscroll log(aggiungere in cima invece che in fondo)
+---------->RIMUOVERE INNERHTML
 
 
+
+
+------> log append child
