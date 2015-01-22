@@ -78,7 +78,8 @@ function SendResponse($QueryType , $con ,$type='empty',$message='empty' )
 //genera la risposta in formato xml 
 function PrintResult($result,$log,$type)
 { 	
-	//nuova funzione adattata all'utilizzo di xml 
+	$parameter_name = array('Id','Nome','Marca','Magazzino','Prezzo_Acquisto','Iva');
+	 
 	header( "content-type: application/xml; charset=UTF-8" );	
 	$xmlDoc= new DOMDocument('1.0','UTF-8');
 	$xmlDoc->formatOutput = true;
@@ -86,15 +87,25 @@ function PrintResult($result,$log,$type)
 	$xmlRoot= $xmlDoc->appendChild($xmlRoot);
 	$xmlResult = $xmlDoc->createElement('result');
 	$xmlRoot->appendChild($xmlResult);
-	$int = '<th>Id</th><th>Nome</th><th>Marca</th><th>Magazzino</th><th>Prezzo Acquisto</th><th>Iva</th>'; 
-
-	$pint = $xmlDoc->createTextNode($int);
-	$xmlResult->appendChild($pint);
+	foreach($parameter_name as $value)
+	{
+		$int =$xmlDoc->createElement('int');
+		$pint=$xmlDoc->createTextNode($value);
+		$int->appendChild($pint);
+		$xmlResult->appendChild($int);
+	}
 	while($row = mysqli_fetch_array($result))
 	{	
-		$e ='<tr>'.'<td>'.$row['Id'].'</td>'.'<td>'.$row['Nome'].'</td>'.'<td>'.$row['Marca'].'</td>'.'<td>'.$row['Magazzino'].'</td>'.'<td>'.$row['Prezzo_Acquisto'].'</td>'.'<td>'.$row['Iva'].'</td>'.'</tr>';
-		$p = $xmlDoc->createTextNode($e);
-		$xmlResult->appendChild($p);
+		$rowElem =$xmlDoc->createElement('row');
+		foreach($parameter_name as $value)
+		{
+			
+			$colElem =$xmlDoc->createElement('col');
+			$valElem=$xmlDoc->createTextNode($row[$value]);
+			$colElem->appendChild($valElem);
+			$rowElem->appendChild($colElem);
+		}
+		$xmlResult->appendChild($rowElem);
 	}
 
 	$xmlLog = $xmlDoc->createElement('log',$log);
@@ -113,7 +124,7 @@ function PrintResult($result,$log,$type)
 function AddParams($QueryType)
 {
 	//global $parameter_name; ----->non funziona 
-	$parameter_name = array('Nome','Marca','Magazzino','PrezzoAcquisto','Iva');
+	$parameter_name = array('Nome','Marca','Magazzino','Prezzo_Acquisto','Iva');
 	//carico il database
 	if($QueryType ==1)
 	{
@@ -128,7 +139,7 @@ function AddParams($QueryType)
 	$tmp=0;
 	foreach($parameter_name as $value)
 	{
-		if($_POST[$value]!= NULL ||$_POST[$value]!= '') //---->devo controllare che contenga almeno un carattere
+		if($_POST[$value]!= NULL ||$_POST[$value]!= '') 
 		{
 			$tmp++;
 			if($tmp==1)

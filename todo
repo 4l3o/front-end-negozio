@@ -1,14 +1,14 @@
-----> rendere config.php più "potente per le configurazioni"
-----> aggiungere > < == per i campi di ricerca numerici
----->mettere per bottoni immagini più belline !!!!!(custom button)  
-----> premere invio per submit
-----> prezzo aggiungere virgola punto + documentazione
-----> aggiungere lunhezza masima campi in documentazione e html
------->aggiornare immmagine documentazione
------->autoscroll log(aggiungere in cima invece che in fondo)
----------->RIMUOVERE INNERHTML
+----> rendere config.php più "potente per le configurazioni"(rev 2.0)
+----> aggiungere > < == per i campi di ricerca numerici(rev 2.0)
+---->mettere per bottoni immagini più belline !!!!!(custom button)(rev 2.0)
+----> premere invio per submit:w (rev 2.0) 
+
+------>autoscroll log(aggiungere in cima invece che in fondo) (rev 2.0)
 
 
+-->aggiungere meta all'html ex slide 73 html FATTO!!!!
 
+------>possibilità di aggiungere thead tbody (per rendere l'intestazione non scrollabile)(rev 2.0)
+--------->SCRIPT DI CREAZIONE DATABASE
+-------->	AGGIORNARE IMMAGINE DOCUMENTAZIONE
 
-------> log append child

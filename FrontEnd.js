@@ -1,5 +1,5 @@
 //la comunicazione server-client avviene tutta attraverso ajax
-var index = {Id:/[^0-9]/, Nome:/[^a-z,A-Z,0-9, ]/, Marca:/[^a-z,A-Z,0-9, ]/,Magazzino:/[^0-9]/,PrezzoAcquisto:/[^0-9]/,Iva:/[^0-9]/}
+var index = {Id:/[^0-9]/, Nome:/[^a-zA-Z0-9 ]/, Marca:/[^a-zA-Z0-9 ]/,Magazzino:/[^0-9]/,Prezzo_Acquisto:/[^0-9.]/,Iva:/[^0-9]/}
 //creao un istanza di xmlhttprequest
 var xmlhttp = CreateXmlHttpRequestObject();
 
@@ -80,12 +80,34 @@ function ServerResponse()
 {
 	//prende la risposta sottoforma di documento XML
 	var response = xmlhttp.responseXML;
-	var mydiv = document.getElementById("mydiv");
-	//mydiv.innerHTML = response.getElementsByTagName("result")[0].childNodes[0].nodeValue;
-	
-	var content =response.getElementsByTagName("result")[0].childNodes[0].nodeValue;
-	mydiv.textContent=content;
-
+	var mybody = document.createElement("tbody");
+	var myhead = document.createElement("thead");
+	var child = response.getElementsByTagName("result")[0];
+	var intLen = child.getElementsByTagName("int").length;
+	for(var i=0;i<intLen;i++)
+	{
+		var intElem = document.createElement("th");
+		var intText = document.createTextNode(child.getElementsByTagName("int")[i].textContent);
+		intElem.appendChild(intText);
+		myhead.appendChild(intElem)
+	}
+	var rowLen =child.getElementsByTagName("row").length;
+	for(var i =0;i<rowLen;i++)
+	{
+		var rowElem =document.createElement("tr");
+		var rowChild =child.getElementsByTagName("row")[i];
+		for(var j=0;j<intLen;j++)
+		{
+			var colElem=document.createElement("td");
+			var colText=document.createTextNode(rowChild.getElementsByTagName("col")[j].textContent);
+			colElem.appendChild(colText);
+			rowElem.appendChild(colElem);
+		}
+		mybody.appendChild(rowElem);
+	}
+	var view = document.getElementById("mydiv");	
+	view.replaceChild(myhead,view.getElementsByTagName("thead")[0]);
+	view.replaceChild(mybody,view.getElementsByTagName("tbody")[0]);
 	var log =response.getElementsByTagName("log")[0].childNodes[0].nodeValue;
 	var type =response.getElementsByTagName("type")[0].childNodes[0].nodeValue;
 	PrintLog(log,type);
@@ -97,9 +119,13 @@ function ServerResponse()
 //funzione per la stampa del log
 function PrintLog(log,type)
 {
-	var message = "<p class=\""+type+"\">-->"+ log+"</p>";
+	var message = "-->"+ log;
 	mydiv = document.getElementById("log");
-	mydiv.innerHTML += message;
+	var text = document.createElement("p");
+	var textCont = document.createTextNode(message);
+	text.appendChild(textCont);
+	text.setAttribute("class",type);
+	mydiv.appendChild(text);
 }
 //funzione per l'inpacchettamento dei parametri
 function Packer(query,index)
@@ -144,7 +170,7 @@ function CheckParameter(query,index)
 			}
 		}
 	}
-	if(!testResult)//levare l'esecuzione nell'html
+	if(!testResult)
 	{
 		var log = err;
 		PrintLog(log,"qerr");
@@ -156,11 +182,10 @@ function CheckParameter(query,index)
 
 function ResetInput ()
 {
-	var index = new Array ("Id","Nome", "Marca","Magazzino","PrezzoAcquisto","Iva");
-	for(var i = 0 ; i<index.length ; i ++)
+	for(x in index)
 	{
 		
-		document.getElementById(index[i]).value = "";
+		document.getElementById(x).value = "";
 		
 	}
 	
@@ -258,7 +283,7 @@ function Refresh(xmlhttp)
 function hide()
 {	
 		document.getElementById("Id").disabled =(document.getElementById("function").value=="remove"||document.getElementById("function").value=="update")?false:true;
-//		document.getElementById("mode").disabled =(document.getElementById("function").value=="search")?false:true;
+
 		var hide=(document.getElementById("function").value=="remove")?true:false;
 		for(key in index)
 		{
@@ -272,12 +297,12 @@ function hide()
 function Inventario()
 {
 	LoadDatabase(xmlhttp);
-	var content = document.getElementById("mydiv").innerHTML;
+	var content = document.getElementById("mydiv").cloneNode(true);
 	var newWindow = window.open("","newWindow");
-	newWindow.document.write("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"print.css\"></head><body></body></html>");
-	//newWindow.document.head.innerHTML="<link rel=\"stylesheet\" type=\"text/css\" href=\"print.css\">";
-	newWindow.document.body.innerHTML="<div><table>"+content+"</table></div>";
+	newWindow.document.write("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"print.css\"><title>Inventario</title></head><body></body></html>");
+	newWindow.document.body.appendChild(content);
 	newWindow.focus();
+	newWindow.print();
 }
 
 

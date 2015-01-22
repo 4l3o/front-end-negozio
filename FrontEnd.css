@@ -26,7 +26,7 @@ body
 		margin:30px 15px 15px 15px;
 		height:88%;
 		width:70%;
-		overflow:scroll;
+		overflow:scroll;		
 	}
 
 .terminal
@@ -75,6 +75,7 @@ body
 		text-align: center;
 		background-color:#5488BC;
 		color: #ffffff;
+		table-layout:fixed;
 	}	
 #mydiv td 
 	{

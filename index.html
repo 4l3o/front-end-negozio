@@ -2,7 +2,9 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>FrontEnd</title>
+		<meta name="author" content="Bachechi Andrea">
+		<meta name="description" content="applicazione per la gestione di un magazzino">
+		<title>Magazzino</title>
 		<link rel="stylesheet" type="text/css" href="FrontEnd.css"/>
 		<script src="FrontEnd.js"></script>
 	</head>
@@ -10,13 +12,13 @@
 	<body onload="LoadDatabase(xmlhttp)">
 		<div class="container">
 			<div class="controller">
-				<form id="frm1" action="">
-					<b>id:</b><input type="text" name="id" id="Id"  disabled></input>
-					<b>nome:</b><input type="text" name="nome" id="Nome"  ></input> 
-					<b>marca:</b><input type="text" name="marca" id="Marca"  ></input> 
-					<b>prezzo_acquisto:</b><input type="text" name="prezzo_acquisto" id="PrezzoAcquisto"  ></input>
-					<b>magazzino:</b><input type="text" name="Magazzino" id="Magazzino"   ></input> 
-					<b>iva:</b><input type="text" name="iva" id="Iva"  ></input><br/> 
+				<form id="frm1" >
+					<b>id:</b><input type="text" name="id" id="Id" maxlength="11" disabled>
+					<b>nome:</b><input type="text" name="nome" id="Nome"  maxlength="16"> 
+					<b>marca:</b><input type="text" name="marca" id="Marca"  maxlength="16"> 
+					<b>prezzo_acquisto:</b><input type="text" name="prezzo_acquisto" id="Prezzo_Acquisto" maxlength="9" >
+					<b>magazzino:</b><input type="text" name="Magazzino" id="Magazzino"   maxlength="11">
+					<b>iva:</b><input type="text" name="iva" id="Iva"  maxlength="3"><br/> 
 	
 				</form>
 				<select id="function" onchange="hide()">
@@ -25,14 +27,9 @@
 					<option value="remove">Remove</option>
 					<option value="update">Update</option>
 				</select>
-<!--				<select id="mode">
-					<option value="eq">=</option>
-					<option value="le">&lt;=</option>
-					<option value="me">&gt;=</option>
-				</select> -->
-				<input type="button" id="submit" onclick="Commit()" value="Submit"/>
-				<input type="button" id="submit" onclick="Refresh(xmlhttp)" value="Refresh"/>	
-				<input type="button" id="submit" onclick="Inventario()" value="stampa inventario"/>
+				<input type="button" class="submit" onclick="Commit()" value="Submit" />
+				<input type="button" class="submit" onclick="Refresh(xmlhttp)" value="Refresh"/>	
+				<input type="button" class="submit" onclick="Inventario()" value="stampa inventario"/>
 				<nav id="reference"><a href="documentazione.html">Documentazione</a></nav>		
 			</div>
 			<div id="log" class="terminal">
@@ -40,6 +37,10 @@
 		</div>
 		<div class="viewer">
 			<table id="mydiv" >
+				<thead>
+				</thead>
+				<tbody>
+				</tbody>
 			</table>
 		</div>		
 	</body>

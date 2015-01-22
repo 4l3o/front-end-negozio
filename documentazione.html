@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="author" content="Bachechi Andrea">
 		<title>Documentazione</title>
 		<link rel="stylesheet" type="text/css" href="FrontEnd.css">
 	</head>
@@ -10,12 +11,13 @@
 				<a href="index.html">indietro</a>
 				<h1 class="title">Documentazione</h1>
 		</header>
-		<article>
+				
 				<section id="interfaccia">
+					
 					<h2 class="title">Interfaccia</h2>
 					<p class="paragraph">l'interfaccia dell'applicazione si presenta nel seguente modo</p>
 					<figure>
-						<img src="interface.png" height="400" width="815" id="interface">	
+						<img src="interface.png" height="400" width="815" id="interface" alt="interfaccia applicazione">	
 					</figure>
 					<ol type="I">
 						<li>
@@ -56,10 +58,11 @@
 						</li>
 						<li>inserire i valori desiderati nei rispettivi campi secondo le seguenti regole :
 							<ul>
-								<li>i campi Nome e Marca accettano solamente valori alfanumerici e spazi </li>
-								<li>i campi Id , Prezzo acquisto ,Magazzino e Iva accetano solamente valori numerici interi o decimali</li>
+								<li>i campi Nome e Marca accettano solamente valori alfanumerici e spazi , per una lunghezza totale di 16 caratteri</li>
+								<li>i campi Id ,Magazzino e Iva accetano solamente valori numerici interi , la lunghezza massima è rispettivamente 11 cifre per Id e Magazzino e 3 cifre per Iva</li>
+								<li>il campo Prezzo Acquisto accetta valori decimali (la parte decimale deve essere separata con un punto),la lunghezza massima per la parte intera è 5 cifre mentre 3 cifre per la parte decimale </li>
 							</ul>	
-						<li>premere il pulsante Submit per inviare i dati o il pulsante Refresh per inizializzare nuovamente l'interfaccia</li>
+						<li>premere il pulsante Submit per inviare i dati , il pulsante Refresh per inizializzare nuovamente l'interfaccia o stampa inventario per generare una versione adatta alla stampa dell'intero database</li>
 
 					</ul>
 
@@ -67,7 +70,6 @@
 				<section id="correttezza">
 					<h2 class="title">Per un corretto utilizzo</h2>
 					<p>per un corretto utilizzo inserire sempre il campo nome , poichè costituisce , insieme a id , la chiave primaria del database . </p>
-				</section>
-		</article>	
+				</section>	
 	</body>
 </html>
