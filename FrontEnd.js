@@ -143,7 +143,7 @@ function Packer(query,index)
 
 }
 
-
+// effettuo un controllo sui parametri con le espressioni regolari
 function CheckParameter(query,index)
 {   
 	var err="valore non corretto per i seguenti campi: ";
@@ -306,7 +306,68 @@ function Inventario()
 }
 
 
+//funzione per l'inizializzazione dell'interfaccia 
+function Init(xmlhttp)
+{
+	params = "query=init";		
+	//interrogo il server per recuperare i dati di sessione
+	if(xmlhttp)
+	{
+		//tentiamo la connessione al server
+		try
+		{
+			xmlhttp.open("POST" , server_address , true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.onreadystatechange = InitialRequest;
+			xmlhttp.send(params);
+		}	
+		catch(e)
+		{
+			var log="errore di connessione al server";
+			PrintLog(log,"err"); 
+		}
+	}
+}
 
+function InitialRequest()
+{
+	//quando readystate assume valore 4 possiamo leggere la risposta del server
+	if(xmlhttp.readyState == 4) 
+	{
+		//continuiamo solo se lo stato http  200
+		if(xmlhttp.status == 200) 
+		{
+			//utilizziamo la risposta del server
+			try
+			{
+				InitInterface();
+			} 
+			catch(e)
+			{
+				var log="errore nella lettura dei dati";
+				PrintLog(log ,"err");
+			}
+		}
+		else
+		{
+			var log ="errrore nella ricezione dei dati";
+			PrintLog(log,"err"); 
+		}
+	}	
+
+}
+
+function InitInterface()
+{
+	var response=xmlhttp.responseXML;
+	var USER = response.getElementById(USER).nodeValue;
+	var TYPE = response.getElementById(TYPE).nodeValue;
+	PrintLog(USER+TYPE,"err");
+
+	LoadDatabase(xmlhttp);
+
+
+}
 
 
 

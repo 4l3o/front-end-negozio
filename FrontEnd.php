@@ -4,8 +4,14 @@
 require_once('config.php');
 $con= mysqli_connect(HOST,USR,PSWD,DB);
 $QueryType = $_POST['query'];
-SendResponse($QueryType , $con);
-
+if($QueryType == 'init')
+{
+	Init();
+}
+else
+{
+	SendResponse($QueryType , $con);
+}
 //chiudo la connessione al DB
 mysqli_close($con);
 
@@ -212,6 +218,12 @@ function AddParams($QueryType)
 		$query_5 .=' WHERE Id="'.$_POST['Id'].'"';
 		return $query_5;
 	}
+}
+
+function Init()
+{
+	session_start();
+	
 }
  
 ?>

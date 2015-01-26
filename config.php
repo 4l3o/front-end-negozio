@@ -8,4 +8,5 @@ define('TB','Prodotti');
 define('HOST','localhost');
 define('USR', 'root');
 define('PSWD', 'root');
+define('TBU','Utenti')
 ?>
