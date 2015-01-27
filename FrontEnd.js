@@ -360,9 +360,10 @@ function InitialRequest()
 function InitInterface()
 {
 	var response=xmlhttp.responseXML;
-	var USER = response.getElementById(USER).nodeValue;
-	var TYPE = response.getElementById(TYPE).nodeValue;
-	PrintLog(USER+TYPE,"err");
+	var USER = response.getElementsByTagName("USER")[0].textContent;
+	var TYPE = response.getElementsByTagName("TYPE")[0].textContent;
+	PrintLog(USER,"err");
+	PrintLog(TYPE,"err");
 
 	LoadDatabase(xmlhttp);
 

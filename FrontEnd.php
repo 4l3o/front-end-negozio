@@ -223,7 +223,18 @@ function AddParams($QueryType)
 function Init()
 {
 	session_start();
-	
+	header( "content-type: application/xml; charset=UTF-8" );	
+	$xmlDoc= new DOMDocument('1.0','UTF-8');
+	$xmlDoc->formatOutput = true;
+	$xmlRoot = $xmlDoc->createElement('xml');
+	$xmlRoot= $xmlDoc->appendChild($xmlRoot);
+	$xmlResult = $xmlDoc->createElement('USER');
+	$xmlResult->nodeValue=$_SESSION['User'];
+	$xmlRoot->appendChild($xmlResult);
+	$xmlResult = $xmlDoc->createElement('TYPE');
+	$xmlResult ->nodeValue=$_SESSION['Type'];
+	$xmlRoot->appendChild($xmlResult);
+	echo $xmlDoc->saveXML();
 }
  
 ?>
