@@ -1,11 +1,13 @@
-//la comunicazione server-client avviene tutta attraverso ajax
-var index = {Id:/[^0-9]/, Nome:/[^a-zA-Z0-9 ]/, Marca:/[^a-zA-Z0-9 ]/,Magazzino:/[^0-9]/,Prezzo_Acquisto:/[^0-9.]/,Iva:/[^0-9]/}
+//variabili di configurazione
+var indexProdotti = {Id:/[^0-9]/, Nome_Prodotto:/[^a-zA-Z0-9 ]/, Marca:/[^a-zA-Z0-9 ]/,Magazzino:/[^0-9]/,Prezzo_Acquisto:/[^0-9.]/,Iva:/[^0-9]/}
+var indexUtenti = {Username:/[^a-zA-Z0-9_]/ ,Nome:/[^a-zA-Z]/,Cognome:/[^a-zA-Z]/,Administrator:/[^01]/ ,Password:/[^a-zA-Z0-9]/}
 //creao un istanza di xmlhttprequest
-var xmlhttp = CreateXmlHttpRequestObject();
+var myxmlhttp = CreateXmlHttpRequestObject();
 
 //indirizzo del server ed eventuali parametri
 var server_address = "FrontEnd.php";
-
+//variabili globali
+var currentTable="Prodotti";
 
 //********************** FUNZIONI GENERICHE*****************************
 
@@ -51,10 +53,10 @@ function SendData (xmlhttp , params )
 function HandleRequestStateChange()
 {
 	//quando readystate assume valore 4 possiamo leggere la risposta del server
-	if(xmlhttp.readyState == 4) 
+	if(myxmlhttp.readyState == 4) 
 	{
 		//continuiamo solo se lo stato http  200
-		if(xmlhttp.status == 200) 
+		if(myxmlhttp.status == 200) 
 		{
 			//utilizziamo la risposta del server
 			try
@@ -79,7 +81,7 @@ function HandleRequestStateChange()
 function ServerResponse()
 {
 	//prende la risposta sottoforma di documento XML
-	var response = xmlhttp.responseXML;
+	var response = myxmlhttp.responseXML;
 	var mybody = document.createElement("tbody");
 	var myhead = document.createElement("thead");
 	var child = response.getElementsByTagName("result")[0];
@@ -91,6 +93,7 @@ function ServerResponse()
 		intElem.appendChild(intText);
 		myhead.appendChild(intElem)
 	}
+	var alternative=0;
 	var rowLen =child.getElementsByTagName("row").length;
 	for(var i =0;i<rowLen;i++)
 	{
@@ -100,18 +103,24 @@ function ServerResponse()
 		{
 			var colElem=document.createElement("td");
 			var colText=document.createTextNode(rowChild.getElementsByTagName("col")[j].textContent);
+			if(alternative==1)
+			{
+				colElem.setAttribute("class","alternative");
+			}
 			colElem.appendChild(colText);
 			rowElem.appendChild(colElem);
+			
 		}
+		alternative=(alternative==0)?1:0;
 		mybody.appendChild(rowElem);
 	}
-	var view = document.getElementById("mydiv");	
+	var view = document.getElementById("mytable");	
 	view.replaceChild(myhead,view.getElementsByTagName("thead")[0]);
 	view.replaceChild(mybody,view.getElementsByTagName("tbody")[0]);
 	var log =response.getElementsByTagName("log")[0].childNodes[0].nodeValue;
 	var type =response.getElementsByTagName("type")[0].childNodes[0].nodeValue;
 	PrintLog(log,type);
-	ResetInput();
+//	ResetInput();
 
 	
 } 
@@ -119,18 +128,19 @@ function ServerResponse()
 //funzione per la stampa del log
 function PrintLog(log,type)
 {
-	var message = "-->"+ log;
+	/*var message = "-->"+ log;
 	mydiv = document.getElementById("log");
 	var text = document.createElement("p");
 	var textCont = document.createTextNode(message);
 	text.appendChild(textCont);
 	text.setAttribute("class",type);
-	mydiv.appendChild(text);
+	mydiv.appendChild(text);*/
+	alert(log);
 }
 //funzione per l'inpacchettamento dei parametri
 function Packer(query,index)
 {       	
-	params = "query=" + query;		
+	params = "query=" + query+"&currentTable="+currentTable;		
 	for(var key in index)
 	{
 		if(document.getElementById(key).value)
@@ -150,12 +160,15 @@ function CheckParameter(query,index)
 	var testResult = true;
 	for(x in index)
 	{
-		if(query=='4'||query=='5')
+		if(query=='remove'||query=='update')
 		{
-			if(index[x].test(document.getElementById("Id")))
+			if(currentTable=="Prodotti")
 			{
-				testResul=false;
-				err += " Id  ";
+				if(index[x].test(document.getElementById("Id")))
+				{
+					testResul=false;
+					err += " Id  ";
+				}
 			}
 		}
 		else
@@ -180,7 +193,7 @@ function CheckParameter(query,index)
 	return true;
 }
 
-function ResetInput ()
+function ResetInput(index)
 {
 	for(x in index)
 	{
@@ -197,60 +210,63 @@ function ResetInput ()
 //funzione che carica l'intera tabella al caricamento
 function LoadDatabase(xmlhttp)
 {	
-	var params = "query=1";
+	var params = "query=load&currentTable="+currentTable;
 	SendData(xmlhttp,params);
 }
 
 //funzione per la ricerca di valori nel database
 function Search()
 {
-
-	var query ="2";
+	alert("search");
+	var index = checkIndex();
+	var query ="search";
 	if(CheckParameter(query,index))
 	{
 		var params = Packer(query,index);
-		SendData(xmlhttp,params);
+		SendData(myxmlhttp,params);
 	}
 	
 }
 
 //funzione per aggiungere un record al database 
-function NewRecord()
+function add()
 {
-
-	var query ="3";
+	var index=checkIndex();
+	var query ="add";
 	if(CheckParameter(query,index))
 	{
 		var params = Packer(query,index);
-		SendData(xmlhttp,params);
+		SendData(myxmlhttp,params);
 	}
 
 }
 
 //funzione per la rimozione di un record dal database
-function DeleteRecord()
+function Remove()
 {
-	var query = "4";
+	var query = "remove";
+	var index=checkIndex();
 	if(CheckParameter(query,index))
 	{
 		var params = Packer(query,index);
-		SendData(xmlhttp,params);
+		SendData(myxmlhttp,params);
 	}
 }
 //funzione di modifica
-function UpdateRecord()
+function update()
 {
-	var query="5";
+	var query="update";
+	var index=checkIndex();
 	if(CheckParameter(query,index))
 	{
 		var params = Packer(query,index);
-		SendData(xmlhttp,params);
+		SendData(myxmlhttp,params);
 	}
 }
 
 
 //funzione di selezione 
-function Commit()
+/*function Commit()
 {
 	var select = document.getElementById("function").value;
 	if(select == "add")
@@ -269,18 +285,22 @@ function Commit()
 	{
 		UpdateRecord();
 	}
-}
+}*/
 
 //refresh
-function Refresh(xmlhttp)
+function Refresh(myxmlhttp)
 {
 	ResetInput();
-	LoadDatabase(xmlhttp);
+	LoadDatabase(myxmlhttp);
 
+}
+function checkIndex()
+{
+	return (currentTable == "Prodotti")?indexProdotti:indexUtenti;
 }
 
 //funzione per nascondere il campo id
-function hide()
+/*function hide()
 {	
 		document.getElementById("Id").disabled =(document.getElementById("function").value=="remove"||document.getElementById("function").value=="update")?false:true;
 
@@ -292,9 +312,9 @@ function hide()
 				document.getElementById(key).disabled = hide;
 			}
 		}
-} 
+} */
 
-function Inventario()
+/*function Inventario()
 {
 	LoadDatabase(xmlhttp);
 	var content = document.getElementById("mydiv").cloneNode(true);
@@ -303,79 +323,7 @@ function Inventario()
 	newWindow.document.body.appendChild(content);
 	newWindow.focus();
 	newWindow.print();
-}
-
-
-//funzione per l'inizializzazione dell'interfaccia 
-function Init(xmlhttp)
-{
-	params = "query=init";		
-	//interrogo il server per recuperare i dati di sessione
-	if(xmlhttp)
-	{
-		//tentiamo la connessione al server
-		try
-		{
-			xmlhttp.open("POST" , server_address , true);
-			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.onreadystatechange = InitialRequest;
-			xmlhttp.send(params);
-		}	
-		catch(e)
-		{
-			var log="errore di connessione al server";
-			PrintLog(log,"err"); 
-		}
-	}
-}
-
-function InitialRequest()
-{
-	//quando readystate assume valore 4 possiamo leggere la risposta del server
-	if(xmlhttp.readyState == 4) 
-	{
-		//continuiamo solo se lo stato http  200
-		if(xmlhttp.status == 200) 
-		{
-			//utilizziamo la risposta del server
-			try
-			{
-				InitInterface();
-			} 
-			catch(e)
-			{
-				var log="errore nella lettura dei dati";
-				PrintLog(log ,"err");
-			}
-		}
-		else
-		{
-			var log ="errrore nella ricezione dei dati";
-			PrintLog(log,"err"); 
-		}
-	}	
-
-}
-
-function InitInterface()
-{
-	var response=xmlhttp.responseXML;
-	var USER = response.getElementsByTagName("USER")[0].textContent;
-	var TYPE = response.getElementsByTagName("TYPE")[0].textContent;
-	PrintLog(USER,"err");
-	PrintLog(TYPE,"err");
-
-	LoadDatabase(xmlhttp);
-
-
-}
-
-
-
-
-
-
-
+}*/
 
 
 

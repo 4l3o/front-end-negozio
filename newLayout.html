@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="author" content="Bachechi Andrea">
+		<meta name="description" content="applicazione per la gestione di un magazzino">
+		<link rel="stylesheet" type="text/css" href="Layout.css">
+		<link rel="stylesheet" type="text/css" href="Style.css">
+		<link rel="stylesheet" type="text/css" href="ElemStyle.css">
+		<link rel="stylesheet" type="text/css" href="TableStyle.css">
+		<script src="init.js"></script>
+		<script src="FrontEnd.js"></script>
+		<script src="Animation.js"></script>
+		<title>Magazzino</title>
+	</head>
+	<body onload="Init();LoadDatabase(myxmlhttp);">
+		<div id="topOptionMenu" class="topPanel pElement"></div>
+		<div id="database" class="wrapper">
+			<div id="ActionMenu" class="sideLeftPanel menuElement"></div>
+			<div id="vPanel" class="visualPanel vElement">
+				<table id="mytable" class="tableView">
+					<thead>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="bottonPanel pElement"></div>
+	</body>
+</html>

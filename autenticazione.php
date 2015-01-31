@@ -4,21 +4,21 @@
 function Login()
 {
 	$con = mysqli_connect(HOST,USR,PSWD,DB);
-	$query='SELECT * FROM '.TBU.' WHERE USR="'.$_POST['usr'].'"';
+	$query='SELECT * FROM '.TBU.' WHERE Username="'.$_POST['usr'].'"';
 	$result = mysqli_fetch_array(mysqli_query($con,$query));
 	$error;
-	if(!$result['USR'])
+	if(!$result['Username'])
 	{
 		$error='username non valido';
 	}
 	else
 	{
-		if($result['PWD']==md5($_POST['pwd']))
+		if($result['Password']==md5($_POST['pwd']))
 		{
 			session_start();
-			$_SESSION['User']=$result['USR'];
-			$_SESSION['Type']=$result['TYPE'];
-			header('Location: FrontEnd.html');
+			$_SESSION['User']=$result['Username'];
+			$_SESSION['Type']=$result['Administrator'];
+			header('Location: newLayout.html');
 		}
 		else
 		{
@@ -29,4 +29,16 @@ function Login()
 	return $error;
 } 
 
+function rememberMe()
+{
+	session_start();
+	if(isset($_SESSION['User']) && isset($_SESSION['Type']))
+	{
+			header('Location: newLayout.html');	
+	}
+	else
+	{
+		session_unset();
+	}
+}
 ?>
