@@ -21,17 +21,24 @@ label
 	height:40%;
 	font-size:30px;
 	background-color:#036564;
-	color:#E8DDCB;;
+	color:#E8DDCB;
 	font-family:arial;
 	text-align:center;
 }
 
 .loginButton
 {
+	position:relative;
 	width:10%;
 	height:5%;
+	bottom:7%;
 }
 .error
 {
 	color:red;
+}
+
+h2
+{
+	margin:2%;
 }

@@ -3,7 +3,6 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="author" content="Bachechi Andrea">
-		<meta name="description" content="applicazione per la gestione di un magazzino">
 		<link rel="stylesheet" type="text/css" href="Layout.css">
 		<link rel="stylesheet" type="text/css" href="Style.css">
 		<link rel="stylesheet" type="text/css" href="ElemStyle.css">
@@ -25,7 +24,19 @@
 					</tbody>
 				</table>
 			</div>
+			<div id="statistiche" class="visualPanel vElement" style="display:none;">
+				<h2 class="intestazione">Storico query:</h2>
+				<div id="cronologia"></div>
+				<h2 class="intestazione">Storico errori:</h2>
+				<div id="errori"></div>	
+			</div>
+
 		</div>
-		<div class="bottonPanel pElement"></div>
+		<div class="bottonPanel pElement">
+			<nav id="link">
+			<a href="documentazione.html">Documentazione</a>
+			</nav>
+
+		</div>
 	</body>
 </html>

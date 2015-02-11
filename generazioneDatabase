@@ -1,0 +1,89 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.10
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost:8889
+-- Generation Time: Feb 01, 2015 alle 19:50
+-- Versione del server: 5.5.38
+-- PHP Version: 5.6.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `DB_Pweb`
+--
+CREATE DATABASE IF NOT EXISTS `DB_Pweb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `DB_Pweb`;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `Prodotti`
+--
+
+CREATE TABLE `Prodotti` (
+`Id` int(11) NOT NULL,
+  `Nome_Prodotto` varchar(12) NOT NULL,
+  `Marca` varchar(12) NOT NULL,
+  `Magazzino` int(11) DEFAULT NULL,
+  `Prezzo_Acquisto` decimal(10,0) DEFAULT NULL,
+  `Iva` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `Prodotti`
+--
+
+INSERT INTO `Prodotti` (`Id`, `Nome_Prodotto`, `Marca`, `Magazzino`, `Prezzo_Acquisto`, `Iva`) VALUES
+(1, 'prova', 'prova', 1, 1, 1),
+(2, 'prova1', 'prova1', 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `Utenti`
+--
+
+CREATE TABLE `Utenti` (
+  `Username` varchar(15) NOT NULL,
+  `Password` varchar(64) NOT NULL,
+  `Administrator` tinyint(1) NOT NULL,
+  `Nome` varchar(11) NOT NULL,
+  `Cognome` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `Utenti`
+--
+
+INSERT INTO `Utenti` (`Username`, `Password`, `Administrator`, `Nome`, `Cognome`) VALUES
+('root', '63a9f0ea7bb98050796b649e85481845', 1, 'root', 'root'),
+('user', 'ee11cbb19052e40b07aac0ca060c23ee', 0, 'user', 'user'),
+('utente', '3ce98305181b1bac59d024a49b0ffd73', 0, 'marco', 'rossi');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Prodotti`
+--
+ALTER TABLE `Prodotti`
+ ADD PRIMARY KEY (`Id`,`Nome_Prodotto`), ADD KEY `Marca` (`Marca`), ADD KEY `Id` (`Id`), ADD KEY `Nome_Prodotto` (`Nome_Prodotto`);
+
+--
+-- Indexes for table `Utenti`
+--
+ALTER TABLE `Utenti`
+ ADD PRIMARY KEY (`Username`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Prodotti`
+--
+ALTER TABLE `Prodotti`
+MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;

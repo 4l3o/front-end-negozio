@@ -4,72 +4,34 @@
 		<meta charset="utf-8">
 		<meta name="author" content="Bachechi Andrea">
 		<title>Documentazione</title>
-		<link rel="stylesheet" type="text/css" href="FrontEnd.css">
+		<link rel="stylesheet" type="text/css" href="documentazione.css">
 	</head>
 	<body>
-		<header id="return">
-				<a href="index.html">indietro</a>
-				<h1 class="title">Documentazione</h1>
-		</header>
-				
-				<section id="interfaccia">
+		<div>
+			<h1>Utilizzo del programma</h1>
+			<ul>
+				<li>Selezionare la scheda Prodotti per operare sul magazzino oppure Utenti ,se amministratori , per operare su gli account registratial servizio</li>
+				<li>Selezionare un operazione attraverso i bottoni in alto a sinistra</li>
+				<li>Inserire nei campi del pannello laterale i corrispettivi valori </li>
+				<li>terminato l'inserimento premere il pulsante all'interno del pannello laterale</li>
+				<li>per ricaricare le tabelle complete  premere nuovamente sul pulsante corrispondente alla scheda (Prodotti,Utenti) su cui stiamo operando </li>
+				<li>NB: in caso di errore l'operazione non verrà eseguita , l'errore verrà mostrato all'interno del pannello statistiche nel riquadro storico errori</li>
+			</ul>
+			<h1>Per un corretto utilizzo</h1>
+			<ul>
+				<li>inserire sempre i campi Id e Username nelle operazioni di aggiornamento (Update) e rimozione (remove) </li>
+				<li>rispettare le seguenti regole per l'inserimento dei valori:
+				<ul>
+				<li>Id ,Magazzino ,Iva ammettono valori numerici</li>
+				<li>Nome_Prodotto ,Marca ,Nome ,Cognome ammettono valori alfanumerici e spazi</li>
+				<li>Username ammette valori alfanumerici e underscore</li>
+				<li>Administrator ammette  valori booleani (0 ,1) </li>
+				<li>Prezzo_Acquisto ammette  valori alfanumerici e punto per separare la parte decimale</li>
+				</ul>
+				</li>
+				<li>effettuare il logout dopo l'utilizzo del servizio</li>	
 					
-					<h2 class="title">Interfaccia</h2>
-					<p class="paragraph">l'interfaccia dell'applicazione si presenta nel seguente modo</p>
-					<figure>
-						<img src="interface.png" height="400" width="815" id="interface" alt="interfaccia applicazione">	
-					</figure>
-					<ol type="I">
-						<li>
-							<h3 class="title">Tabella</h3>
-							qui verranno visualizzati i record presenti nel database  
-						</li>
-						<li>
-							<h3 class="title">Blocco di imput</h3>
-							<p>qui sono contenuti i comandi per l'utilizzo dell'applicazione</p>
-							<ul>
-								<li>campi di inserimento</li>
-								<li>menù a discesa per la selezione dell'operazione</li>
-								<li>pulsante Submit per l'invio dei dati </li>
-								<li>pulsante Refresh per ricaricare la tabella e resettare i campi di inserimento</li>
-							</ul>
-						</li>
-						<li>
-							<h3 class="title">Log</h3>
-							<p>qui vengono visualizzate informazioni relative all'esecuzione delle quesry e eventuali messaggi di errore,secondo il seguente schema di colori</p>
-							<ul>
-								<li><div id="query" class="color"></div> informazioni sulla query</li>
-								<li><div id="err" class="color"></div> errori releativi alla connessione</li>
-								<li><div id="qerr" class="color"></div> errori relativi alla query</li>
-							</ul>
-						</li>		
-					</ol>
-				</section>
-				<section id="regole">
-					<h2 class="title">Funzionamento</h2>
-					<ul>
-						<li>Selezionare l'operzione da effettuare dal menu a discesa 
-							<ul>
-								<li>Add : aggiunge un record al database</li>
-								<li>Search : ricerca un record nel database </li>	
-								<li>Remove : rimuove il record , con Id corrispondente , dal database</li>
-								<li>Update : aggiorna i campi del record con Id corrispondente</li>
-							</ul>
-						</li>
-						<li>inserire i valori desiderati nei rispettivi campi secondo le seguenti regole :
-							<ul>
-								<li>i campi Nome e Marca accettano solamente valori alfanumerici e spazi , per una lunghezza totale di 16 caratteri</li>
-								<li>i campi Id ,Magazzino e Iva accetano solamente valori numerici interi , la lunghezza massima è rispettivamente 11 cifre per Id e Magazzino e 3 cifre per Iva</li>
-								<li>il campo Prezzo Acquisto accetta valori decimali (la parte decimale deve essere separata con un punto),la lunghezza massima per la parte intera è 5 cifre mentre 3 cifre per la parte decimale </li>
-							</ul>	
-						<li>premere il pulsante Submit per inviare i dati , il pulsante Refresh per inizializzare nuovamente l'interfaccia o stampa inventario per generare una versione adatta alla stampa dell'intero database</li>
-
-					</ul>
-
-				</section>
-				<section id="correttezza">
-					<h2 class="title">Per un corretto utilizzo</h2>
-					<p>per un corretto utilizzo inserire sempre il campo nome , poichè costituisce , insieme a id , la chiave primaria del database . </p>
-				</section>	
+			</ul>
+		</div>
 	</body>
 </html>

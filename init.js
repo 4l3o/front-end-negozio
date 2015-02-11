@@ -4,7 +4,7 @@ var actionRoot={Search:"Search();",Add:"add();",Remove:"Remove();",Update:"updat
 var optionMenuRoot={Prodotti:"prodotti();",Utenti:"utenti();",Statistiche:"statistiche();"};
 var inputUserMenuRoot={Username:"11",Administrator:"1",Password:"32",Nome:"11",Cognome:"11"};
 //array di configurazione menu utente 
-var inputMenuUser={Nome_Prodotto:"16",Marca:"16",Magazzino:"11",Prezzo_Acquisto:"9",Iva:"3"};
+var inputMenuUser={Id:"11",Nome_Prodotto:"16",Marca:"16",Magazzino:"11",Prezzo_Acquisto:"9",Iva:"3"};
 var actionUser={Search:"Search();"};
 var optionMenuUser={Prodotti:"prodotti();",Statistiche:"statistiche();"};
 
@@ -68,23 +68,26 @@ function InitInterface()
 	var response=infoxmlhttp.responseXML;
 	var USER = response.getElementsByTagName("USER")[0].textContent;
 	var TYPE = response.getElementsByTagName("TYPE")[0].textContent;
-	createDisplayMenuButton("topOptionMenu","Menu");
+
 	createLogoutButton("topOptionMenu",USER);
 	var topMenu =document.createElement("div");
 	topMenu.setAttribute("class","menuWrapper");
 	if(TYPE==true)
 	{
 
+		createDisplayMenuButton("topOptionMenu",actionRoot);
 		//creo il menu per la sezione prodotti
-		menuInflater("ActionMenu","prodotti",inputMenuRoot,actionRoot,true);	 
-		menuInflater("ActionMenu","utenti",inputUserMenuRoot,actionRoot,false);	
+		menuInflater("ActionMenu","prodotti",inputMenuRoot,actionRoot,"prodotti",true);	 
+		menuInflater("ActionMenu","utenti",inputUserMenuRoot,actionRoot,"utenti",false);	
 		optionMenuInflater("topOptionMenu",optionMenuRoot);
 	}
 	else
 	{
-		menuInflater("ActionMenu","prodotti",inputMenuUser,actionUser,true);
+		createDisplayMenuButton("topOptionMenu",actionUser);
+		menuInflater("ActionMenu","prodotti",inputMenuUser,actionUser,"prodotti",true);
 		optionMenuInflater("topOptionMenu",optionMenuUser);
 	}
+	document.getElementById("Prodotti").setAttribute("class","disabled optionMenuButton");
 }
 
 function inflater(targetId, elemRef)
@@ -93,12 +96,14 @@ function inflater(targetId, elemRef)
 	target.appendChild(elemRef);
 }
 
-function menuInflater(targetId,viewId,inputMenu,action,display)
+function menuInflater(targetId,viewId,inputMenu,action,db,display)
 {
 	var menu = document.createElement("div");
 	menu.setAttribute("class","menuWrapper");
 	for(x in inputMenu)
 	{
+		var wrapper=document.createElement("div");
+		wrapper.setAttribute("id","input"+x);
 		var label = document.createElement("label");
 		label.setAttribute("for",x);
 		var txt = document.createTextNode(x);
@@ -107,14 +112,16 @@ function menuInflater(targetId,viewId,inputMenu,action,display)
 		input.setAttribute("type","text");
 		input.setAttribute("id",x);
 		input.setAttribute("maxlength",inputMenu[x]);
-		menu.appendChild(label);
-		menu.appendChild(input);
+		wrapper.appendChild(label);
+		wrapper.appendChild(input);
+		menu.appendChild(wrapper);
 	}
 	for(x in action)
 	{
 		var a=document.createElement("a");
 		a.setAttribute("class","myButton");
 		a.setAttribute("href","#");
+		a.setAttribute("id","button"+db+x);
 		a.setAttribute("onclick",action[x]);
 		var txt =document.createTextNode(x);
 		a.appendChild(txt);
@@ -138,6 +145,7 @@ function optionMenuInflater(targetId,action)
 		a.setAttribute("class","optionMenuButton");
 		a.setAttribute("href","#");
 		a.setAttribute("onclick",action[x]);
+		a.setAttribute("id",x);
 		var txt =document.createTextNode(x);
 		a.appendChild(txt);
 		menu.appendChild(a);
@@ -157,9 +165,10 @@ function createLogoutButton(targetId,username)
 
 }
 
-function createDisplayMenuButton(targetId,menuName)
+function createDisplayMenuButton(targetId,displayMenuId,menuName)
 {
 		var a=document.createElement("a");
+		a.setAttribute("id",displayMenuId);
 		a.setAttribute("class","displayMenuButton");
 		a.setAttribute("href","#");
 		a.setAttribute("onclick",menuName+"();");
@@ -217,4 +226,22 @@ function LogOutRequest()
 		}
 	}	
 
+}
+
+function createDisplayMenuButton(targetId,action)
+{
+	var menu=document.createElement("div");
+	menu.setAttribute("class","menuWrapper");
+	for(x in action)
+	{
+		var a=document.createElement("a");
+		a.setAttribute("id",x);
+		a.setAttribute("class","displayMenuButton");
+		a.setAttribute("href","#");
+		a.setAttribute("onclick","selectInput(this);");
+		var txt =document.createTextNode(x);
+		a.appendChild(txt);
+		menu.appendChild(a);
+	}
+	inflater(targetId,menu);
 }

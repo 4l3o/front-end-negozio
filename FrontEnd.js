@@ -1,6 +1,6 @@
 //variabili di configurazione
 var indexProdotti = {Id:/[^0-9]/, Nome_Prodotto:/[^a-zA-Z0-9 ]/, Marca:/[^a-zA-Z0-9 ]/,Magazzino:/[^0-9]/,Prezzo_Acquisto:/[^0-9.]/,Iva:/[^0-9]/}
-var indexUtenti = {Username:/[^a-zA-Z0-9_]/ ,Nome:/[^a-zA-Z]/,Cognome:/[^a-zA-Z]/,Administrator:/[^01]/ ,Password:/[^a-zA-Z0-9]/}
+var indexUtenti = {Username:/[^a-zA-Z0-9_]/ ,Nome:/[^a-zA-Z ]/,Cognome:/[^a-zA-Z ]/,Administrator:/[^01]/ ,Password:/[^a-zA-Z0-9]/}
 //creao un istanza di xmlhttprequest
 var myxmlhttp = CreateXmlHttpRequestObject();
 
@@ -120,22 +120,23 @@ function ServerResponse()
 	var log =response.getElementsByTagName("log")[0].childNodes[0].nodeValue;
 	var type =response.getElementsByTagName("type")[0].childNodes[0].nodeValue;
 	PrintLog(log,type);
-//	ResetInput();
-
 	
 } 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //funzione per la stampa del log
 function PrintLog(log,type)
 {
-	/*var message = "-->"+ log;
-	mydiv = document.getElementById("log");
+	var message = "-->"+ log;
+	var mydiv;
+	if(type=="query")
+		mydiv = document.getElementById("cronologia");
+	else
+		mydiv = document.getElementById("errori");
 	var text = document.createElement("p");
 	var textCont = document.createTextNode(message);
 	text.appendChild(textCont);
 	text.setAttribute("class",type);
-	mydiv.appendChild(text);*/
-	alert(log);
+	mydiv.appendChild(text);
 }
 //funzione per l'inpacchettamento dei parametri
 function Packer(query,index)
@@ -217,7 +218,6 @@ function LoadDatabase(xmlhttp)
 //funzione per la ricerca di valori nel database
 function Search()
 {
-	alert("search");
 	var index = checkIndex();
 	var query ="search";
 	if(CheckParameter(query,index))
@@ -225,7 +225,7 @@ function Search()
 		var params = Packer(query,index);
 		SendData(myxmlhttp,params);
 	}
-	
+	ResetInput(index);
 }
 
 //funzione per aggiungere un record al database 
@@ -238,6 +238,7 @@ function add()
 		var params = Packer(query,index);
 		SendData(myxmlhttp,params);
 	}
+	ResetInput(index);
 
 }
 
@@ -251,6 +252,7 @@ function Remove()
 		var params = Packer(query,index);
 		SendData(myxmlhttp,params);
 	}
+	ResetInput(index)
 }
 //funzione di modifica
 function update()
@@ -262,30 +264,10 @@ function update()
 		var params = Packer(query,index);
 		SendData(myxmlhttp,params);
 	}
+	ResetInput(index);
 }
 
 
-//funzione di selezione 
-/*function Commit()
-{
-	var select = document.getElementById("function").value;
-	if(select == "add")
-	{
-		NewRecord();
-	}
-	if(select == "search")
-	{
-		Search();
-	}
-	if(select == "remove")
-	{
-		DeleteRecord();
-	}
-	if(select == "update")
-	{
-		UpdateRecord();
-	}
-}*/
 
 //refresh
 function Refresh(myxmlhttp)
@@ -299,31 +281,6 @@ function checkIndex()
 	return (currentTable == "Prodotti")?indexProdotti:indexUtenti;
 }
 
-//funzione per nascondere il campo id
-/*function hide()
-{	
-		document.getElementById("Id").disabled =(document.getElementById("function").value=="remove"||document.getElementById("function").value=="update")?false:true;
-
-		var hide=(document.getElementById("function").value=="remove")?true:false;
-		for(key in index)
-		{
-			if(key !="Id")
-			{
-				document.getElementById(key).disabled = hide;
-			}
-		}
-} */
-
-/*function Inventario()
-{
-	LoadDatabase(xmlhttp);
-	var content = document.getElementById("mydiv").cloneNode(true);
-	var newWindow = window.open("","newWindow");
-	newWindow.document.write("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"print.css\"><title>Inventario</title></head><body></body></html>");
-	newWindow.document.body.appendChild(content);
-	newWindow.focus();
-	newWindow.print();
-}*/
 
 
 

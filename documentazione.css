@@ -1,0 +1,22 @@
+body
+{
+	background-color:#031634;
+
+}
+
+div
+{
+	position:relative;
+	display:block;
+	margin:10px;
+	height:100%;
+	outline:10%;
+	background-color:#033649;
+	color:#E8DDCB;
+	font-family:arial;
+}
+
+h1
+{
+	margin-left:30%;
+}
