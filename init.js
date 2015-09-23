@@ -1,5 +1,5 @@
 //array di configurazione menu amministratore
-var inputMenuRoot={Id:"11",Nome_Prodotto:"16",Marca:"16",Magazzino:"11",Prezzo_Acquisto:"9",Iva:"3"};
+var inputMenuRoot={Id:"11",Nome_Prodotto:"16",Marca:"16",Venditore:"16",Quantità:"11",Prezzo_Acquisto:"9",Iva:"3",Prezzo_Vendita:"9",Ricavo:"9",Data_Ultima_Modifica:"8"};
 var actionRoot={Search:"Search();",Add:"add();",Remove:"Remove();",Update:"update();"};
 var optionMenuRoot={Prodotti:"prodotti();",Utenti:"utenti();",Statistiche:"statistiche();"};
 var inputUserMenuRoot={Username:"11",Administrator:"1",Password:"32",Nome:"11",Cognome:"11"};
